@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+
+  <title>Punch Out Model Synthesis</title>
+
+  <link rel="stylesheet" type="text/css" href="css/localfonts.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+  <script type='text/javascript' src='js/jszip.js'></script>
+  <script type='text/javascript' src='js/FileSaver.js'></script>
+
+  <!--  <link rel="icon" type="image/png" href="images/favicon.ico"> -->
+  <script type='text/javascript' src='js/poms.js'></script>
+
+  <script type='text/javascript' src='js/pixi.js'></script>
+  <script type='text/javascript' src='js/pixiapp.js'></script>
+  <!--  <link rel='stylesheet' href='css/CSS.css'> -->
+
+  <script type='text/javascript' src='js/poms_default.js'></script>
+  <script type='text/javascript' src='js/poms_helper.js'></script>
+
+</head>
+
+<body>
+  <div class='container' id='ui_container'>
+
+    <dialog id='ui_dialog' >
+      <p>Punch Out Model Synthesis Parameters</p>
+
+      <div class="row">
+        <div class="three columns" > blockSize (x,y) </div>
+        <div class="three columns" > <input type='text' size='2' id='ui_blocksize_x'/> </div>
+        <div class="three columns" > <input type='text' size='2' id='ui_blocksize_y'/>  </div>
+        <div class="three columns"> <button id='ui_blocksize_default'>default</button> </div>
+      </div>
+
+      <div class="row">
+        <div class="three columns" > gridSize (x,y) </div>
+        <div class="three columns" > <input type='text' size='2' id='ui_gridsize_x'/> </div>
+        <div class="three columns" > <input type='text' size='2' id='ui_gridsize_y'/>  </div>
+        <div class="three columns"> <button id='ui_gridsize_default'>default</button> </div>
+      </div>
+
+      <div class="row">
+        <div class="three columns"> softenSize (x,y)[,(xe,ye)] </div>
+        <div class="one columns"> <input type='text' size='2' id='ui_softensize_x_start'/> </div>
+        <div class="one columns"> <input type='text' size='2' id='ui_softensize_y_start'/> </div>
+        <div class="one columns"> &nbsp; </div>
+        <div class="one columns"> <input type='text' size='2' id='ui_softensize_x_end' /> </div>
+        <div class="one columns"> <input type='text' size='2' id='ui_softensize_y_end'/> </div>
+        <div class="one columns"> &nbsp; </div>
+        <div class="three columns"> <button id='ui_softensize_default'>default</button> </div>
+      </div>
+
+      <div class="row">
+        <div class="three columns" > maxBlockIter (x,y) </div>
+        <div class="three columns" > <input type='text' size='6' id='ui_maxiter'/> </div>
+        <div class="three columns" > &nbsp; </div>
+        <div class="three columns"> <button id='ui_maxiter_default'>default</button> </div>
+      </div>
+
+      <div class="row">
+        <div class="three columns" > rand. cell choice param (w/E) </div>
+        <div class="three columns" > <input type='text' size='5' id='ui_rand_w'/> </div>
+        <div class="three columns" > <input type='text' size='5' id='ui_rand_E'/>  </div>
+        <div class="three columns"> <button id='ui_rand_default'>default</button> </div>
+      </div>
+
+      <div class="row">
+        <div class="three columns" > cell choice policy </div>
+
+        <div class="six columns" >
+          <select class='u-full-width' id='ui_cell_choice_policy'>
+            <option value='min'>min entropy</option>
+            <option value='max'>max entropy</option>
+            <option value='rand'>rand</option>
+            <option value='wf'>wavefront</option>
+          </select>
+        </div>
+        <div class="three columns"> &nbsp; </div>
+
+      </div>
+
+      <div class="row">
+        <div class="three columns" > block choice policy </div>
+
+        <div class="six columns" >
+          <select class='u-full-width' id='ui_block_choice_policy'>
+            <option value='pending'>uniform</option>
+            <option value='xnyn'>rand</option>
+            <option value='xpyp'>x+ y+</option>
+            <option value='xnyn'>x- y-</option>
+            <option value='cone'>cone</option>
+            <option value='cone1'>cone1</option>
+            <option value='cone-'>cone-</option>
+            <option value='cone1-'>cone1-</option>
+            <option value='wf'>wavefront</option>
+            <option value='wf-'>wavefront-</option>
+            <option value='wf2'>wavefront2</option>
+            <option value='wf3'>wavefront3</option>
+          </select>
+        </div>
+        <div class="three columns"> &nbsp; </div>
+
+      </div>
+
+      <div class="row">
+        <div class="three columns" > viz step </div>
+        <div class="three columns" > <input id='ui_viz_step' type='text' size='2'/> </div>
+        <div class="three columns" > &nbsp; </div>
+        <div class="three columns"> <button id='ui_viz_step_default'>default</button> </div>
+      </div>
+
+      <div class="row">
+        <div class="three columns" > seed </div>
+        <div class="three columns" > <input id='ui_seed' type='text' size='6'/> </div>
+        <div class="three columns" > &nbsp; </div>
+        <div class="three columns"> <button id='ui_seed_default'>default</button> </div>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <div class="four columns" style='text-align:center;'> <button id='ui_option_accept'>ok</button> </div>
+        <div class="four columns" > &nbsp; </div>
+        <div class="four columns" style='text-align:center;'> <button id='ui_option_cancel'>cancel</button> </div>
+      </div>
+
+
+
+    </dialog>
+
+    <div class="row" style='margin-top: 5%;'>
+      <div class="eight columns" >
+        <h4>Punch Out Model Synthesis</h4>
+      </div>
+      <div class="four columns" style='text-align:right;'>
+        <!-- <button id='ui_info_button' style='border:0px;'> -->
+        <a href='poms_info.html' >
+          <img style='width:30px;' src='img/info.svg'></img>
+          <!-- <img style='width:60%; margin-top:20%;' src='img/info.svg'></img> -->
+        </a>
+          <!-- </button> -->
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row">
+        <div class="four columns" style='text-align:center;' >
+          <!-- <button id='ui_run' style='width:120px;  background:rgba(176,237,136,0.5);'>run</button> -->
+          <button id='ui_run' class='button-primary' style='width:120px;'>run</button>
+        </div>
+        <div class="four columns" style='text-align:left;'>
+          <select class='u-full-width' id='ui_tileset'>
+            <option value='pillMortal'>Pill Mortal</option>
+            <option value='2bmmv'>2bit Micro Metroidvania</option>
+            <option value='forestmicro'>Forest Micro</option>
+            <option value='oarpgo'>Overhead Action RPG Overworld</option>
+            <option value='1985'>1985</option>
+            <option value='amarelo'>Amarelo</option>
+            <option value='kyst'>Kyst</option>
+            <option value='mccaves'>Mc-Caves</option>
+            <option value='island'>Island</option>
+            <option value='neondungeon'>Neon Dungeon</option>
+            <option value='neondirt'>Neon Dirt</option>
+            <option value='neonsnow'>Neon snow</option>
+            <option value='blowharder'>Blowharder</option>
+            <option value='psygen'>Psygen</option>
+            <option value='vilenes'>Vilenes</option>
+          </select>
+        </div>
+        <div class="four columns" style='text-align:center;'>
+          <!-- <button id='ui_option' style='background:rgba(255,254,170,0.5);'>options</button> -->
+          <button id='ui_option' >
+            options
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="twelve columns" id='ui_gfx'>
+        <canvas id='ui_canvas' height='500px'></canvas>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="three columns">
+          <button id='ui_download' class='button-disabled'> Download </button>
+        
+      </div>
+      <div class="nine columns" id='ui_download'> &nbsp; </div>
+    </div>
+
+    <div class='row' style='display:none;'>
+
+      <div class="row"> <div class="twelve columns"> <img id="img_1985" src="img/1985_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_2bmmv" src="img/2bmmv_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_amarelo" src="img/amarelo_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_blowharder" src="img/blowharder_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_forestmicro" src="img/forestmicro_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_island" src="img/island_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_kyst" src="img/kyst_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_mccaves" src="img/mccaves_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_neondirt" src="img/neondirt_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_neondungeon" src="img/neondungeon_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_neonsnow" src="img/neonsnow_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_oarpgo" src="img/oarpgo_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_pillMortal" src="img/pillMortal_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_psygen" src="img/psygen_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_vilenes" src="img/vilenes_tileset.png"> </div> </div>
+
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_1985" src="img/1985_flat_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_2bmmv" src="img/2bmmv_flat_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_amarelo" src="img/amarelo_flat_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_blowharder" src="img/blowharder_flat_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_forestmicro" src="img/forestmicro_flat_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_island" src="img/island_flat_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_kyst" src="img/kyst_flat_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_mccaves" src="img/mccaves_flat_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_neondirt" src="img/neondirt_flat_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_neondungeon" src="img/neondungeon_flat_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_neonsnow" src="img/neonsnow_flat_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_oarpgo" src="img/oarpgo_flat_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_pillMortal" src="img/pillMortal_flat_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_psygen" src="img/psygen_flat_tileset.png"> </div> </div>
+      <div class="row"> <div class="twelve columns"> <img id="img_flat_vilenes" src="img/vilenes_flat_tileset.png"> </div> </div>
+
+    </div>
+
+    <div class='row' id='ui_log'>
+      <div class="twelve columns" id='ui_log_0'>
+        init
+      </div>
+    </div>
+
+  <dialog id='ui_info_dialog' >
+    <p>Punch Out Model Synthesis</p>
+    <hr>
+
+    <p>...</p>
+
+    <hr>
+
+    <div class="row">
+      <div class='ten columns'> &nbsp; </div>
+      <div class='two columns'>
+        <button id='ui_info_dialog_close'>Close</button>
+      </div>
+
+    </div>
+
+  </dialog>
+
+
+
+  </div>
+</body>
+
+<script>
+  poms_web_init();
+</script>
+
+<html>
+
+
