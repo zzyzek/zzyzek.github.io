@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="META TAG">
+  <meta property="og:title" content="Punch Out Model Synthesis: A Stochastic Algorithm for Constraint Based Tiling Generation"/>
+  <meta property="og:description" content=""/>
+  <meta property="og:url" content="zzyzek.github.io/PunchOutModelSynthesisPaper"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/teaser.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="325"/>
+
+
+  <meta name="twitter:title" content="Punch Out Model Synthesis">
+  <meta name="twitter:description" content="Punch Out Model Synthesis">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <!-- <meta name="twitter:card" content="summary_large_image"> -->
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="Machine Learning, Wave Function Collapse Algorithm, Model Synthesis">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <!-- <title>Punch Out Model Synthesis: A Stochastic Algorithm for Constraint Based Tiling Generation</title> -->
+  <title>Punch Out Model Synthesis</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+
+  <!--
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  -->
+
+  <link href="static/css/goog-sans-noto-castoro.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+
+  <!--
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  -->
+  <link rel="stylesheet" href="static/css/academicons.min.css">
+
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <script src="static/js/jquery.min.js"></script>
+
+  <!-- <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script> -->
+  <script src="static/js/main.js"></script>
+
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+
+            <h1 class="title is-1 publication-title">Punch Out Model Synthesis: <br> A Stochastic Algorithm for <br> Constraint Based Tiling Generation </h1>
+            <!--
+            <h1>
+              <span class="title is-1 publication-title">Punch Out Model Synthesis: </span> <br>
+              <span class='title is-2 publication-title'>A Stochastic Algorithm for <br> Constraint Based Tiling Generation </span>
+            </h1>
+            -->
+
+            <!--
+            <h1 class="title is-1 publication-title">Punch Out Model Synthesis: </h1>
+            <h2 class="title is-2 publication-title">A Stochastic Algorithm for <br> Constraint Based Tiling Generation</h2>
+            -->
+
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block"> <a href="zzyzek.github.io" target="_blank">Z. Zzyzek</a> </span>
+              <!--
+              <span class="author-block"> <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Second Author</a><sup>*</sup>,</span>
+              <span class="author-block"> <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Third Author</a> </span>
+              -->
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">TBD</span>
+              <!-- <span class="author-block">EXAG 2024: AIIDE Workshop on Experimental AI in Games</span> -->
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- Arxiv PDF link -->
+                <span class="link-block">
+                  <a href="https://github.com/zzyzek/PunchOutModelSynthesis-Paper/POMS.pdf" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                <span>Paper</span>
+              </a>
+            </span>
+
+                    <!-- Supplementary PDF link -->
+                    <!--
+                    <span class="link-block">
+                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Supplementary</span>
+                    </a>
+                  </span>
+                    -->
+
+                  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/zzyzek/PunchOutModelSynthesis" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <!-- ArXiv abstract Link -->
+                <!--
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+                -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser video-->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+
+    <div class="hero-body">
+      <video poster="" id="tree" autoplay controls muted loop height="100%">
+        <!-- Your video here -->
+        <source src="static/videos/pm.mp4"
+        type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        Given a tile constraint set, find a realization respecting those constrainst in a large tiled grid.
+        Here, the tile constraint set is from the <i>Pill Mortal</i> tile set.
+        Punch Out Model Synthesis is run, progressively realizing sub-blocks and reverting regions or
+        eroding resolved boundaries as a backtracking measure when it fails to find a sub-block realization.
+      </h2>
+    </div>
+
+    </div>
+    </div>
+
+  </div>
+</section>
+<!-- End teaser video -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+As an artistic aid in tiled level design, Constraint Based Tiling Generation (CBTG) algorithms can help to automatically create level
+realizations from a set of tiles and placement constraints. Merrell’s Model Synthesis (MMS) and Gumin’s Wave Function Collapse (WFC)
+have been proposed as Constraint Based Tiling Generation (CBTG) algorithms that work well for many scenarios but have limitations in
+problem size, problem setup and solution biasing. We present Punch Out Model Synthesis (POMS), a Constraint Based Tiling Generation
+algorithm, that can handle large problem sizes, requires minimal assumptions for setup and can help mitigate solution biasing. POMS
+attempts to resolve indeterminate grid regions by trying to progressively realize sub-blocks, performing a stochastic boundary erosion
+on previously resolved regions should sub-block resolution fail. We highlight the results of running a reference implementation on
+different tile sets and discuss a tile correlation length, implied by the tile constraints, and its role in choosing an appropriate block size
+to aid POMS in successfully finding grid realizations.
+          </p>
+
+        <img src="static/images/teaser.png" alt="Teaser Image"/>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<!-- Image carousel -->
+<!-- <section class="hero is-small"> -->
+<section class="section hero is-light">
+  <div class='hero-body'>
+  <div class="container is-centered">
+    <!-- <div class="hero-body"> -->
+    <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+
+        <h2 class="title is-3">Punch Out Model Synthesis Algorithm Overview</h2>
+
+          <div class="level-set has-text-justified">
+              <p>
+  POMS works by initially setting the grid to an indeterminate state and progressively realizing sub blocks of the grid.
+  Block boundary edges that fall within the larger grid body
+  are pinned so that, should a block realization succeed, the
+  block can be re-integrated back into the larger grid. Should
+  block level realization fail, depending on the type of block
+  realization failure, either the failed block region is set to
+  an indeterminate state or the block region is restored to its
+  previous state and all realized region boundaries within the
+  grid are considered for erosion by probabilistically setting
+  them to an indeterminate state.
+              </p>
+            </div>
+
+        <div id="results-carousel1" class="carousel results-carousel">
+
+         <div class="item" height="100%">
+          <img src="static/images/poms_figalg.png" alt="Single Step Algorithm Description"/>
+          <h2 class="subtitle has-text-centered">
+            Overview of a single step of the Punch Out Model Synthesis algorithm.
+          </h2>
+        </div>
+
+        <!--
+        <div class="item">
+          <img src="static/images/pm_slideshow.png" alt="Pill Mortal Slideshow"/>
+          <h2 class="subtitle has-text-centered">
+            Slideshow run of Punch Out Model Synthesis on the <i>Pill Mortal</i> tile set.
+          </h2>
+        </div>
+        -->
+
+        <!--
+        <div class="item">
+          <img src="static/images/tileset_rrti.png" alt="Automatic Tile Constraint Generation Example"/>
+          <h2 class="subtitle has-text-centered">
+            An example source image, super tile set and resulting tile set for the automatic tile constraint generation process.
+         </h2>
+       </div>
+        -->
+
+       <div class="item">
+        <img src="static/images/2d_poms_examples.png" alt="2D POMS Examples with TACCL"/>
+        <h2 class="subtitle has-text-centered">
+          Overview of the Tile Arc Consistent Correlation Length, exemplar image and resulting example for four 2D tile sets.
+        </h2>
+      </div>
+
+      <!--
+       <div class="item">
+        <img src="static/images/brutal-plum_cons.png" alt="3D POMS Example with TACCL"/>
+        <h2 class="subtitle has-text-centered">
+          Overview of the Tile Arc Consistent Correlation Length, example tile set and example output for the <i>Brutal Plum</i> tile set.
+        </h2>
+      </div>
+      -->
+
+      <!-- </div> -->
+
+    </div>
+    </div>
+
+  </div>
+  </div>
+</section>
+<!-- End image carousel -->
+
+
+
+<!-- Image carousel -->
+<section class="hero is-small">
+  <div class='hero-body'>
+    <div class="container is-centered">
+
+      <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+
+      <h2 class="title is-3">Example Outputs</h2>
+
+
+      <div id="results-carousel" class="carousel results-carousel">
+
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/pillMortal_128x128.png" alt="Pill Mortal"/>
+        <h2 class="subtitle has-text-centered">
+          Example output of Punch Out Model Synthesis for the <i>Pill Mortal</i> tile set.
+        </h2>
+      </div>
+
+
+       <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/2bmmv_128x128.png" alt="Two Bit Micro Metroidvania"/>
+        <h2 class="subtitle has-text-centered">
+          Example output of Punch Out Model Synthesis for the <i>Two Bit Micro Metroidvania</i> tile set.
+        </h2>
+      </div>
+
+       <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/oarpgo_256x256_wUbW3x3.png" alt="Overhead Action RPG Overworld"/>
+        <h2 class="subtitle has-text-centered">
+          Example output of Punch Out Model Synthesis for the <i>Overhead Action RPG Overworld</i> tile set.
+        </h2>
+      </div>
+
+       <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/minirogue_128x128.png" alt="Mini Rogue"/>
+        <h2 class="subtitle has-text-centered">
+          Example output of Punch Out Model Synthesis for the <i>Mini Rogue</i> tile set.
+        </h2>
+      </div>
+
+       <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/brutal-plum_screenshot.png" alt="Brutal Plum"/>
+        <h2 class="subtitle has-text-centered">
+          Example output of Punch Out Model Synthesis for the <i>Brutal Plum</i> tile set.
+        </h2>
+      </div>
+
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/1985_128x128.png" alt="1985"/>
+        <h2 class="subtitle has-text-centered">
+          Example output of Punch Out Model Synthesis for the <i>1985</i> tile set.
+        </h2>
+      </div>
+
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/amarelo_128x128.png" alt="Amarelo"/>
+        <h2 class="subtitle has-text-centered">
+          Example output of Punch Out Model Synthesis for the <i>Amarelo</i> tile set.
+        </h2>
+      </div>
+
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/kyst_128x128.png" alt="Kyst"/>
+        <h2 class="subtitle has-text-centered">
+          Example output of Punch Out Model Synthesis for the <i>Kyst</i> tile set.
+        </h2>
+      </div>
+
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/island_128x128.png" alt="Island"/>
+        <h2 class="subtitle has-text-centered">
+          Example output of Punch Out Model Synthesis for the <i>Island</i> tile set.
+        </h2>
+      </div>
+
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/blowharder_128x128.png" alt="Blowharder"/>
+        <h2 class="subtitle has-text-centered">
+          Example output of Punch Out Model Synthesis for the <i>Blowharder</i> tile set.
+        </h2>
+      </div>
+
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/psygen_128x128.png" alt="Psygen"/>
+        <h2 class="subtitle has-text-centered">
+          Example output of Punch Out Model Synthesis for the <i>Psygen</i> tile set.
+        </h2>
+      </div>
+
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/forestmicro_128x128.png" alt="Forest Micro"/>
+        <h2 class="subtitle has-text-centered">
+          Example output of Punch Out Model Synthesis for the <i>Forest Micro</i> tile set.
+        </h2>
+      </div>
+
+    </div>
+    </div>
+
+    </div>
+  </div>
+</div>
+</section>
+<!-- End image carousel -->
+
+
+
+<!-- Youtube video -->
+<!--
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+
+      <h2 class="title is-3">Video Presentation</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          
+          <div class="publication-video">
+
+            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+<!-- End youtube video -->
+
+
+<!-- Video carousel -->
+<!--
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">Another Carousel</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-video1">
+          <video poster="" id="video1" autoplay controls muted loop height="100%">
+
+            <source src="static/videos/carousel1.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video2">
+          <video poster="" id="video2" autoplay controls muted loop height="100%">
+
+            <source src="static/videos/carousel2.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video3">
+          <video poster="" id="video3" autoplay controls muted loop height="100%">\
+
+            <source src="static/videos/carousel3.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+
+<!-- End video carousel -->
+
+
+
+
+
+
+<!-- Paper poster -->
+<!--
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title">Poster</h2>
+
+      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
+          </iframe>
+        
+      </div>
+    </div>
+  </section>
+-->
+<!--End paper poster -->
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>
+TBD
+<!-- NOT YET PUBLISHED!!!! -->
+<!--
+@inproceedings{zzyzek2024POMS,
+ title={Punch Out Model Synthesis: A Stochastic Algorithm for Constraint Based Tiling Generation},
+author={Zzyv Zzyzek },
+booktitle={Proceedings of the AIIDE Workshop on Experimental AI in Games},
+year={2024}}
+-->
+      </code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <!-- Statcounter tracking code -->
+  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+  <!-- End of Statcounter Code -->
+
+</body>
+</html>
