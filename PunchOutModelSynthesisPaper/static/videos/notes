@@ -1,0 +1,7 @@
+Older version of firefox don't support yuv444, so all videos have been converted to yuv420p.
+
+For example:
+
+```
+ffmpeg -i oarpgo_x10.webm -pix_fmt yuv420p -c:a copy -movflags +faststart oarpgo_x10_w.mp4
+```
