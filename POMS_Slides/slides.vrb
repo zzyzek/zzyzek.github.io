@@ -1,0 +1,8 @@
+\frametitle{Auxiliary Slides}
+Potential Future Work
+
+    \begin{itemize}
+      \item Spectral Graph Decomposition methods for automatic biome detection
+      \item AC4 speedups via templates
+      \item Weak global constraints
+    \end{itemize}
