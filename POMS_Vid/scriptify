@@ -1,0 +1,29 @@
+#!/bin/bash
+
+ifn='script.txt'
+tfn=`mktemp`
+
+# help tts with some words
+#
+
+#  sed 's/[aA]lgorithm/algah-rithm/g' | \
+
+cat $ifn | \
+  grep -v -P '^#' | \
+  sed 's/stochastic/stokastic/g' | \
+  sed 's/[gG]umin/gummin/g' | \
+  cat > $tfn
+
+
+echo '{ "script": [' > script.json
+
+sed -z 's/\n/XXX/g' $tfn | \
+  sed 's/XXXXXX\(XXX\)*/YYY/g' | \
+  sed 's/XXX/ /g' | \
+  sed 's/YYY/\n/g' | \
+  sed 's/^/  "/' | \
+  sed 's/$/",/g' >> script.json
+
+echo -e '  "FIN" ]\n}' >> script.json
+
+rm -f $tfn

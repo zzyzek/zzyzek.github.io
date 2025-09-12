@@ -1,12 +1,17 @@
-
-
 #Punch out model synthesis is a stochastic constraint based tiling generation algorithm.
-Punch out model synthesis is a stokastic constraint based tiling generation algorithm.
+Punch out model synthesis is a stochastic constraint based tiling generation algorithm.
 
-I'll get into what each of the terms means in this context but the idea
-is to generate 2 D or 3 D scenes from some set of tile constraints.
+#I'll get into what each of the terms means in this context but
+The idea is to generate 2-D or 3-D scenes from some set of tile constraints.
 
-The goal is to generate images like this, like this, like this, or like this.
+The goal is to generate images like this.
+
+like this.
+
+like this.
+
+or like this.
+
 
 If you've heard of Gumin's wave function collapse algorithm or Merrell's
 modify in blocks model synthesis algorithm, we're trying to do the same basic
@@ -37,15 +42,17 @@ are the tile constraints.
 So, the basic problem we're trying to solve is, given a set of tile
 constraints, find a valid realization that respects all the tile constraints.
 
+##!!
 This is called a constraint based tiling generation problem and is the
-central problem that the punch out model synthesis algorithm is trying to solve.
+focus of what the punch out model synthesis algorithm is trying to solve.
 
+##!!
 The constraint based tiling generation problem is a specialization of
-a more general constraint satisfaction problem.
+a more general research area named constraint satisfaction problems.
 
-Constraint satisfaction problems are overly general for this problem
+Constraint satisfaction problems are overly general for this domain
 and introduce too much formalism, so I won't be going into them further,
-but we will be using some definitions and terminology.
+but we will be borrowing some terminology and definitions.
 
 Arc consistency is a term to indicate that all tiles in every cell have
 at least one valid neighbor.
@@ -57,13 +64,14 @@ If a water tile appears in the neighboring cell, then a water or bank tile
 must appear in the original cell.
 
 Arc consistency makes sure that every available tile in a cell has supporting
-tiles in neighoring cells.
+tiles in neighboring cells.
 
 In some sense, arc consistency is making sure there are no obvious
 contradictions.
 
 For example, if there was a house tile that had no valid dark green tile
-in a neighboring cell, then we know we could remove the house tile.
+in a neighboring cell, then we know we could remove the house tile from that
+cell.
 
 This observation gives us the basis for a constraint propagation algorithm.
 
@@ -71,20 +79,21 @@ The engine of the constraint propagation algorithm is fundamentally
 just finding any tiles that don't have support, removing them,
 and repeating until we're in an arc consistent state.
 
-Onec we're in an arc consistent state, we can push things along by
+Once we're in an arc consistent state, we can try to make progress by
 guessing at a single tile placement for some cell, then continuing
 on with our constraint propagation.
 
 A word of warning.
+
 Arc consistency is a very weak consistency check,
 in the sense that a partial realization can be in an arc consistent
 state but have no valid realization.
 
-Arc consistency is a local propertly only, validating that there is
+Arc consistency is a local property only, validating that there is
 no obvious contradiction.
 
 While being in an arc consistent state doesn't guarantee there's a valid
-realization, being in an arc inconsistent state for certain tells us
+realization, being in an arc inconsistent state, for certain, tells us
 there's no valid realization.
 
 So arc consistency is a kind of empirical validation of an answer.
@@ -93,20 +102,19 @@ If it's arc consistent, we haven't yet found a contradiction, but
 if it's in an arc inconsistent state, we know we've failed and we can
 stop.
 
-
-We've covered a lot of ground, so recapping quickly, our
-goal is to find a valid grid realization subject to tile constraints.
+##??
+Recapping quickly, our goal is to find a valid grid realization subject to tile constraints.
 
 The grid is composed of cells and each cell holds the possibility
 of any tile being placed there.
 
 We refine the placement of tiles within each of the grid cells
-by applying our constraint propagation technique and, when
+by applying our constraint propagation technique, and when
 our constraint propagation has settled down into an arc consistent
 state, applying a single tile refinement to some cell to start the process
 all over again.
 
-Variations on how and where we apply the constriant propagation
+Variations on how and where we apply the constraint propagation
 algorithm allow us to recreate and extend known algorithms.
 
 For example, if we just report failure on contradiction and
@@ -114,16 +122,17 @@ attach a minimum entropy heuristic when choosing tile refinement
 after arc consistency, we've recreated Gumin's wave function collapse
 algorithm.
 
-Merrell created a pre-cursor algorithm to wave function collapse, called modify in blocks model synthesis, which starts from a fully realized grid, then applies a constraint solver on subblocks, integrating them back in on a successful realization, or, on failure, reverting to the original subblock state.
+Merrell created a pre-cursor algorithm to wave function collapse, called
+modify-in-blocks-model-synthesis, which starts from a fully realized grid, then applies a constraint solver on subblocks, integrating them back in on a successful realization, or, on failure, reverting to the original subblock state.
 
 So now we've set the stage for what the limitations of the common
 algorithms are and potential ways of improving them.
 
 On the one hand, we have Gumin's wave function collapse that
-can start from an indeterminate state but reports failure if
-it gets into an arc incosistent state.
+can start from an indeterminate state, but just stops if
+it reaches a contradiction, needing a full restart.
 
-On the other hand, there's Merrell's modify in blocks model synthesis,
+On the other hand, there's Merrell's modify-in-blocks-model-synthesis,
 which can recover from not finding a realization by reverting the block
 to it's original state and continuing on, but needs a fully realized
 initial state to start the algorithm in the first place.
@@ -133,7 +142,7 @@ algorithm that addresses some of these limitations.
 
 Breakout model synthesis operates much like Gumin's wave function collapse
 but if an arc inconsistent state is encountered, it backtracks by reverting
-a localized spatial region of the grid to an indeterminate state near
+a localized spatial region of the grid to an indeterminate state, near
 where the contradiction was encountered.
 
 As motivation for this tactic, Hoetzlein's just math project also
@@ -152,39 +161,25 @@ enough apart from each other without the possibility of them bleeding
 into each other to create contradictions.
 
 More formally, the tile arc consistent correlation length is
-calculated by taking an separate, isolated block, fixing a tile
+calculated by taking a separate isolated block, fixing a tile
 at the center to a value, propagating constraints until arc
 consistency is achieved and then taking the bounding box
 of affected tiles.
 
-The width or height of the bounding box is then the tile
+The width and height of the bounding box is then the tile
 arc consistent correlation length.
 
-Now is a good time to review the strengths and weaknesses of each
-of the three algorithms just presented but, quickly, let
-me introduce two more terms.
-
-A block level solver is a solver that maintains arc consistency
-on the whole grid, like Gumin's wave function collapse or Hoetzlein's breakout
-model synthesis.
-
-A grid level solver, like Merrell's modify in blocks model synthesis,
-is a solver that only keeps minimal information on the
-whole grid but works on sub-blocks, keeping full arc consistent information
-only on the sub-block.
-
 Gumin's wave function collapse can start from an indeterminate
-grid but, being a block level solver, needs to keep full arc consistent
+grid but needs to keep full arc consistent
 information about the whole grid.
 
 Gumin's wave function collapse also has no contradiction resilience,
 stopping without recourse should a contradiction be encountered.
 
-Merrell's modify in blocks model synthesis is a grid level solver, so has the potential
-to work on large grids.
+Merrell's modify-in-blocks-model-synthesis has the potential to work on large grids.
 
 #Merrell's modify in blocks model synthesis 
-It additionially has guaranttees of finding
+It additionally has guarantees of finding
 a valid realization, but this guarantee
 comes at the cost of requiring a determined initial realization,
 which may be difficult, depending on the application.
@@ -194,33 +189,257 @@ can start from an indeterminate state and has contradiction resiliency through
 it's stochastic backtracking but is a block level solver, requiring
 information about the whole grid.
 
-## ommit ergodic condition
+## omit ergodic condition
 
-
-Punch out model synthsis is designed to keep the most relevant parts
-of each of these algorithms while making necessary comprimises where it needs
+Punch out model synthesis is designed to keep the most relevant parts
+of each of these algorithms while making necessary compromises where it needs
 to.
 
-Punch out model synthesis starts from an indeterminate state, is a grid level solver,
-so works on sub-block while only keeping minimal information about the rest of
+Punch out model synthesis starts from an indeterminate state,
+works on subblocks while only keeping minimal information about the rest of
 the grid, and has contradiction resilience through stochastic backtracking.
 
-With this in mind, we're able to describe the punch out model synthesis
-algorithm.
+Here is a summary of the differences between each of the
+algorithms.
+
+Here, a block level solver is one that maintains arc consistency
+on the whole grid, like Gumin's wave function collapse,
+while a grid level solver, like Merrell's modify-in blocks-model-synthesis,
+that works on subblocks while only keeping minimal information on the whole
+grid.
+
+Now that we've understood the problem setup and motivation, we
+can describe the punch out model synthesis algorithm.
 
 
+We start from a grid that's partially realized, where only
+summary information is kept for the grid.
+
+Each cell only holds exactly one tile, or a marker indicating
+the cell is in a completely indeterminate state.
+
+We then choose a block to work on, where the block is smaller than
+the whole grid.
+
+We initialize the block by giving each cell the full array
+of tiles domain possibilities.
+
+The boundaries of the blocks are set to the grid values and fixed
+or pinned during resolution so that the block can be re-integrated back into
+the grid should we succeed in finding a realization.
+
+Punch out model synthesis is agnostic as to what block level solver to use
+during this process, but, for example, breakout model synthesis
+is a good choice.
+
+We then attempt to solve by trying to find a fully realized block.
+
+If the block can be fully realized, we re-integrate it back into the grid.
+
+Since the boundaries of the block were pinned, we know it can be re-integrated
+back into the grid without issue.
+
+If the resolution failed, due to too many attempts without a successful
+resolution, say, then the original block is restored and the boundary
+of previously resolved regions in the grid is eroded.
+
+Restoring the block without further alteration runs the risk of being
+unable to recover from getting into an
+overly constrained state, or, in the worst case, a dead end.
+
+The motivation behind erosion is to remove problem tiles that might be overly
+constraining a region.
+
+In some sense, the erosion helps relieve the pressure, backing out of
+a potentially overly constrained state so that we can try again.
+
+The erosion is done randomly and only in the case of this type of failure,
+so more erosion will happen the more we start having troubles resolving
+blocks.
+
+There is another failure condition if the block can't even be initialized
+so that we can start the constraint propagation.
+
+If this should happen, this means that there are tiles on the boundary that
+immediately imply a contradiction within the block.
+
+In this case, the whole block is reverted to an indeterminate state and
+erosion is applied to the rest of the grid.
+
+Since only a single tile or indicator is being kept as summary information
+for the grid, punch out model synthesis only knows there's a contradiction
+when it attempts to resolve a block.
+
+If a block has a contradiction on its pinned boundary, this is, in some sense,
+a strong contradiction and so we need to have an aggressive backoff strategy
+to try and recover.
+
+And that's the core of the punch out model synthesis algorithm.
+
+Choose blocks and try to resolve them.
+
+If there's a failure, revert or restore and erode.
+
+Otherwise re-integrate into the grid and keep going until the whole grid is
+resolved.
+
+Working on sub-blocks allows for fine-grained constraint propagation on
+the block being worked on.
+
+Keeping summary information for the rest of the grid allows for large models
+to be realized.
+
+The core idea of the algorithm uses the tile correlation length.
+
+Our approximation of the correlation length by its
+tile arc consistent correlation length, informs our choice of block size,
+where we'd ideally like to choose the block size larger than the tile
+arc consistent correlation length.
+
+If the correlation is finite,
+as estimated by the tile arc consistent correlation length,
+we can be assured that resolving blocks has a reasonable chance of success
+and won't destroy progress elsewhere.
+
+Here's the pill mortal tile set again.
+
+In some sense, This is the ideal case for punch out model synthesis as the
+tile arc consistent correlation length is finite
+and so regions can resolve effectively independently of each other.
+
+This run highlights a block choice schedule that chooses block centers at random.
+
+If the tile arc consistent correlation length isn't finite, this means
+tile resolution can extend beyond the boundaries of a block and have
+influence over tile choice in disparate regions of the larger grid.
+
+Here's punch out model synthesis running on the Forest Micro tile set,
+which has an unbounded tile arc consistent correlation length.
+
+To highlight the stochastic backtracking steps in more detail,
+
+here's a highlighted frame from the reversion and erosion step,
+
+with the reversion being the big chunk taken out of the middle, highlighted in
+red, and with the erosion, highlighted in yellow, that has mouse bites out of
+the right and lower peninsula.
 
 
+As can be seen by the tile arc consistent correlation length frequency plot on the right,
+the correlation is unbounded, so fixing some tiles in the center of a grid
+will have constraints that propagate out to the edge, no matter
+the size of the grid.
 
----
+The unbounded tile arc consistent correlation length is most likely due to the global constraint that
+the river count on the top and bottom row have to match, as can be seen
+by the example output on the left.
 
+The river count equal constraint is not explicitly put in,  but is a by-product
+of the purely local nearest neighbor constraints.
+
+From the tile arc consistent correlation length frequency plot on the right,
+we can see kind of two things going on where there's a
+blob in the middle that most likely represents the bulk of the local
+constraints
+and the streak across that represents the global constraints.
+
+so choosing a block size larger than this
+local constraint length will help us make some progress,
+but the global constraints can come back to haunt us and prevent our
+local progress from finding a global solution.
+
+In general, punch out model synthesis has trouble with these types of global constraints,
+and will fail,
+but, in this particular case,
+biasing block choice to the upper left hand corner helps punch out model synthesis reliably
+resolve this model.
+
+The reason that this heuristic works
+is most likely due to punch out model synthesis keeping a contiguous region that,
+for the most part, keeps the global constraint valid at every
+block resolution step.
+
+Choosing a block size large enough to overcome the local constraints and
+providing a heuristic for block choice, to help with the global constraints,
+lets punch out model
+synthesis reliably find resolutions for this particular model.
+
+This is just a stroke of luck for this particular model,
+but, in general, punch out model synthesis has significant difficulty with
+global constraints.
+
+
+punch out model synthesis is an alternative algorithm when
+
+the tile set is constrained,
+
+the grid is large or potentially unbounded,
+
+and resource limitations are a concern, so we don't want to use terabytes of
+memory to find a realization.
+
+Each of these features is designed to overcome the limitations of well
+known algorithms while keeping the best aspects of other algorithms.
+
+#To me, the core concepts are understanding the correlation length and
+#trying to identify and understand the global constraints.
+
+#punch out model synthesis is really just designed to take advantage
+#of these core ideas while keeping the features we want for a grid level
+#solver.
+
+That summary information means we need to make compromises in keeping full arc
+consistency for the state of the model, so we need other backoff strategies
+that don't rely on the heavy weight process of maintaining full arc
+consistency.
+
+#The summary information comes at the cost of solver power as it can more easily
+#get into overly constrained states or dead ends.
+
+A block level solver can leverage the power that comes from the constraint propagation
+to help in resolution, but it comes at the cost of being resource intensive.
+
+So punch out model synthesis is an algorithm that can
+at least attempt to create model realizations that are large in both tile
+count and grid size, by scaling resources with the block size rather than the
+grid size, but sacrifice some overall resolution power by only using summary
+information for the rest of the grid.
+
+## np completeness
+## automatic tile generation 
+## future research
+## 
+
+
+## caveats
+
+There's a lot of other details that I've omitted from this video.
 
 In general, the constraint based tiling generation problem is N P complete,
 so the most likely situation is that this problem is fundamentally difficult.
 
 The good news is that worst case N P completeness results are sometimes
-misleading for real world tile sets and the problems are under constrained
+misleading for real world tile sets, and the problems are under constrained
 enough for us to find realizations quickly.
 
+
+Another important detail is how to automatically create tile constraint rules.
+
+
+Many of the the tile constraint rules can be inferred from exemplar
+images.
+
+Many good resources on how to do this can be found in Gumin's
+wave function collapse repository.
+
+In terms of some of the other aspects for punch out model synthesis,
+the paper goes into more details for anyone interested.
+
+You can find a reference implementation on github.
+
+There is a github page has links to the paper and an online demo of punch out model synthesis that can be run in the
+browser.
+
+#Thanks!
 
 
