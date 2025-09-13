@@ -103,7 +103,7 @@ if it's in an arc inconsistent state, we know we've failed and we can
 stop.
 
 ##??
-Recapping quickly, our goal is to find a valid grid realization subject to tile constraints.
+Recapping quickly, our goal is to find a valid grid realization, subject to tile constraints.
 
 The grid is composed of cells and each cell holds the possibility
 of any tile being placed there.
@@ -132,8 +132,8 @@ On the one hand, we have Gumin's wave function collapse that
 can start from an indeterminate state, but just stops if
 it reaches a contradiction, needing a full restart.
 
-On the other hand, there's Merrell's modify-in-blocks-model-synthesis,
-which can recover from not finding a realization by reverting the block
+On the other hand, Merrell's modify-in-blocks-model-synthesis
+can recover from failing to find a realization by reverting the block
 to it's original state and continuing on, but needs a fully realized
 initial state to start the algorithm in the first place.
 
@@ -152,6 +152,7 @@ to measure how much spatial influence tile realization has.
 The tile arc consistent correlation length tries to quantify how
 much influence a tile has over long distances.
 
+##??
 If fixing a tile only had a finite correlation length, influencing
 other tiles within a small spatial region around it, this would
 lead to independent regions.
@@ -228,10 +229,6 @@ The boundaries of the blocks are set to the grid values and fixed
 or pinned during resolution so that the block can be re-integrated back into
 the grid should we succeed in finding a realization.
 
-Punch out model synthesis is agnostic as to what block level solver to use
-during this process, but, for example, breakout model synthesis
-is a good choice.
-
 We then attempt to solve by trying to find a fully realized block.
 
 If the block can be fully realized, we re-integrate it back into the grid.
@@ -244,8 +241,7 @@ resolution, say, then the original block is restored and the boundary
 of previously resolved regions in the grid is eroded.
 
 Restoring the block without further alteration runs the risk of being
-unable to recover from getting into an
-overly constrained state, or, in the worst case, a dead end.
+unable to recover from getting into an overly constrained state, or, in the worst case, a dead end.
 
 The motivation behind erosion is to remove problem tiles that might be overly
 constraining a region.
@@ -275,6 +271,10 @@ a strong contradiction and so we need to have an aggressive backoff strategy
 to try and recover.
 
 And that's the core of the punch out model synthesis algorithm.
+
+Punch out model synthesis is agnostic as to what block level solver to use
+during this process, but, for example, breakout model synthesis
+is a good choice.
 
 Choose blocks and try to resolve them.
 
@@ -338,10 +338,9 @@ The river count equal constraint is not explicitly put in,  but is a by-product
 of the purely local nearest neighbor constraints.
 
 From the tile arc consistent correlation length frequency plot on the right,
-we can see kind of two things going on where there's a
-blob in the middle that most likely represents the bulk of the local
-constraints
-and the streak across that represents the global constraints.
+we can see two things going on, where there's a
+large area in the middle that most likely represents the bulk of the local
+constraints, and the streak across that represents the global constraints.
 
 so choosing a block size larger than this
 local constraint length will help us make some progress,
@@ -364,7 +363,7 @@ providing a heuristic for block choice, to help with the global constraints,
 lets punch out model
 synthesis reliably find resolutions for this particular model.
 
-This is just a stroke of luck for this particular model,
+This is just luck for this particular model,
 but, in general, punch out model synthesis has significant difficulty with
 global constraints.
 
@@ -410,7 +409,6 @@ information for the rest of the grid.
 ## future research
 ## 
 
-
 ## caveats
 
 There's a lot of other details that I've omitted from this video.
@@ -422,24 +420,26 @@ The good news is that worst case N P completeness results are sometimes
 misleading for real world tile sets, and the problems are under constrained
 enough for us to find realizations quickly.
 
-
 Another important detail is how to automatically create tile constraint rules.
 
-
-Many of the the tile constraint rules can be inferred from exemplar
-images.
+One method is to use an exemplar image and infer the tile constraint rules
+from it.
 
 Many good resources on how to do this can be found in Gumin's
-wave function collapse repository.
+wave function collapse repository for people who want to know more.
 
-In terms of some of the other aspects for punch out model synthesis,
-the paper goes into more details for anyone interested.
+For brevity, I've omitted many details from the punch out model synthesis
+algorithm, such as how to choose blocks, what erosion policies and values to
+use, among others.
 
-You can find a reference implementation on github.
+The punch out model synthesis paper has more details for people who want to
+know more.
 
-There is a github page has links to the paper and an online demo of punch out model synthesis that can be run in the
-browser.
+There is also a reference implementation on github that has working code and many
+examples on a variety of tile sets.
 
-#Thanks!
+For convenience, I've also set up a small online javascript demo of punch out
+model synthesis that runs in the browser.
+
 
 
