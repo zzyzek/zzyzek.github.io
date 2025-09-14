@@ -10,6 +10,7 @@ tfn=`mktemp`
 
 cat $ifn | \
   grep -v -P '^#' | \
+  sed 's/arc con/ark con/g' | \
   sed 's/stochastic/stokastic/g' | \
   sed 's/[gG]umin/gummin/g' | \
   cat > $tfn
