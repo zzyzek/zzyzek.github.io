@@ -2,23 +2,19 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
-  <!-- Replace the content tag with appropriate information -->
-  <meta name="description" content="META TAG">
+  <meta name="description" content="Two-colour Zig-Zag Numberlink (two-path Flow Free) on rectangles. A forbidden-pattern characterization, a constructive polynomial-time algorithm, and a Lean 4 verification, with a narrated explainer video.">
   <meta property="og:title" content="Two-Colour Zig-Zag Numberlink on Rectangles: A Forbidden-Pattern Characterization, a Constructive Polynomial-Time Algorithm, and a Lean Verification"/>
-  <meta property="og:description" content=""/>
-  <meta property="og:url" content="zzyzek.github.io/R2K2ZZN"/>
-  <meta property="og:image" content="static/image/teaser.png" />
-  <meta property="og:image:width" content="1200"/>
-  <meta property="og:image:height" content="325"/>
-
+  <meta property="og:description" content="Two disjoint paths that cover a rectangle. Decided by a finite catalogue of forbidden patterns, solved in polynomial time, verified in Lean 4."/>
+  <meta property="og:url" content="https://zzyzek.github.io/R2K2ZZNPaper/"/>
+  <meta property="og:image" content="static/images/video_poster.jpg" />
+  <meta property="og:image:width" content="1280"/>
+  <meta property="og:image:height" content="720"/>
 
   <meta name="twitter:title" content="Two Path Zig Zag Numberlink">
-  <meta name="twitter:description" content="Two Path Zig Zag Numberlink">
-  <!-- <meta name="twitter:image" content="static/images/your_twitter_banner_image.png"> -->
-  <meta name="keywords" content="Discrete mathematics, algorithms">
+  <meta name="twitter:description" content="Two disjoint paths that cover a rectangle. A polynomial-time algorithm, verified in Lean 4.">
+  <meta name="twitter:image" content="static/images/video_poster.jpg">
+  <meta name="keywords" content="Discrete mathematics, algorithms, Numberlink, Flow Free, disjoint path cover, grid graphs, Hamiltonian path, Lean 4">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
 
   <title>Two Path Zig Zag Numberlink</title>
   <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
@@ -34,7 +30,6 @@
   <link rel="stylesheet" href="static/css/index.css">
 
   <script src="static/js/jquery.min.js"></script>
-  <script src="static/js/main.js"></script>
 
   <link rel="stylesheet" href="static/css/fontawesome.all.css">
   <script defer src="static/js/fontawesome.all.js"></script>
@@ -42,6 +37,29 @@
   <script src="static/js/bulma-carousel.min.js"></script>
   <script src="static/js/bulma-slider.min.js"></script>
   <script src="static/js/index.js"></script>
+
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="static/js/mathjax/tex-svg.js"></script>
+
+  <style>
+    .fig { margin: 0 auto; display: table; min-width: min(13rem, 100%); }
+    .fig img { max-width: 100%; height: auto; display: block; }
+    .fig figcaption { display: table-caption; caption-side: bottom; font-size: 0.9rem; color: #4a4a4a; margin-top: 0.4rem; text-align: left; }
+    .fig figcaption b { color: #222; }
+    .content pre { text-align: left; font-size: 0.85rem; max-width: 100%; overflow-x: auto; }
+    .hero > .container { width: 100%; min-width: 0; }
+    .chapters { columns: 2; column-gap: 2rem; text-align: left; margin: 1rem auto 0 auto; max-width: 36rem; }
+    .chapters li { list-style: none; break-inside: avoid; }
+    .chapters a { font-variant-numeric: tabular-nums; display: inline-block; min-width: 3.2rem; }
+    .result-box { border-left: 4px solid #7F77DD; background: #f7f6fd; padding: 0.8rem 1.2rem; margin: 1rem 0; text-align: left; }
+    .content table td, .content table th { vertical-align: middle; }
+    @media screen and (max-width: 600px) { .chapters { columns: 1; } }
+  </style>
 </head>
 <body>
 
@@ -64,44 +82,40 @@
               <span class="author-block"> <a href="https://zzyzek.github.io" target="_blank">Z. Zzyzek</a> </span>
             </div>
 
-            <div class="is-size-5 publication-authors">
-              <!-- <span class="author-block">PROBABLY NEVER</span> -->
-            </div>
-
             <div class="column has-text-centered">
               <div class="publication-links">
 
-                <!--
                 <span class="link-block">
-                  <a href="https://arxiv.org/pdf/2501.14786" target="_blank"
+                  <a href="#video"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"> <i class="fas fa-film"></i> </span>
+                    <span>Video</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/zzyzek/R2K2ZZN/blob/main/paper/build/zzn.pdf" target="_blank"
                      class="external-link button is-normal is-rounded is-dark">
                     <span class="icon"> <i class="fas fa-file-pdf"></i> </span>
                     <span>Paper</span>
                   </a>
                 </span>
-                -->
 
-                  <!-- Github link -->
-                  <span class="link-block">
-                    <a href="https://github.com/zzyzek/R2K2ZZN" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
+                <span class="link-block">
+                  <a href="https://github.com/zzyzek/R2K2ZZN" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"> <i class="fab fa-github"></i> </span>
                     <span>Code</span>
                   </a>
                 </span>
 
-                <!-- Arxiv link -->
-                <!--
                 <span class="link-block">
-                  <a href="https://arxiv.org/abs/2501.14786" target="_blank"
+                  <a href="https://github.com/zzyzek/R2K2ZZN/tree/main/lean" target="_blank"
                      class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon"> <i class="ai ai-arxiv"></i> </span>
-                    <span>arXiv</span>
+                    <span class="icon"> <i class="fas fa-check-double"></i> </span>
+                    <span>Lean Proof</span>
                   </a>
                 </span>
-                -->
 
                 <span class="link-block">
                   <a href="https://zzyzek.github.io/R2K2ZZN/demo" target="_blank"
@@ -111,60 +125,82 @@
                   </a>
                 </span>
 
+                <!--
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"> <i class="ai ai-arxiv"></i> </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                -->
 
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
 
-<!-- Teaser video-->
-<section class="hero teaser">
+<!-- Explainer video -->
+<section class="hero teaser" id="video">
   <div class="container is-max-desktop">
-
-    <div class="columns is-centered has-text-centered">
-    <div class="column is-four-fifths">
-
     <div class="hero-body">
-      <video poster="" id="tree" autoplay controls muted loop height="100%">
-        <!-- Your video here -->
-        <source src="static/videos/zzn_explainer_h.mp4"
-        type="video/mp4">
+
+      <video id="explainer" poster="static/images/video_poster.jpg" controls preload="metadata" width="100%">
+        <source src="static/videos/zzn_explainer_h.mp4" type="video/mp4">
       </video>
 
-      <!--
-      <h2 class="subtitle has-text-centered">
-        In Zig-Zag Numberlink, pairs of endpoints in a grid must be joined by vertex-disjoint paths
-        that together visit every cell. The problem is NP-complete when the number of pairs is un-
-        bounded (Adcock et al.). For a single pair it is the Hamiltonian path problem in rectangular
-        grid graphs, solved by Itai, Papadimitriou and Szwarcfiter. Two pairs on a rectangle form the
-        paired 2-disjoint path cover problem. We settle the case of two pairs on rectangles with the
-        endpoints anywhere in the grid. If both sides of the rectangle are at least 11, an instance is
-        solvable if and only if no entry of a finite catalogue of forbidden patterns occurs. The catalogue
-        consists of a parity condition, an alternation condition on the border, a handful of local corner
-        and edge patterns, 65 listed corner configurations, and a rule that propagates forced routes out
-        of the corners before testing alternation. If a side is at most 10, a frontier dynamic programming
-        algorithm decides the instance in time linear in the long side. The characterization is construc-
-        tive. Solutions are built by deleting empty lines, splitting the rectangle by straight cuts, and
-        splicing the pieces back together, in time O((R+C) RC). Both directions of the characterization
-        and the correctness of the dynamic programming algorithm are verified in Lean 4. The finite
-        case analyses, which are window certificates for the corner configurations and a check of all
-        irreducible instances with sides 11–22, are carried out by the Lean compiler via native decide.
-        We describe the algorithm, the catalogue, the proof structure, the compromises made in the
-        formalization, and implementations in Python, JavaScript and C that produce identical output.
+      <h2 class="subtitle has-text-centered" style="margin-top:0.75rem;">
+        A narrated ten-minute explainer. The problem, the thin-grid dynamic program, the
+        forbidden patterns, how solutions are built, a worked example, and the Lean proof.
       </h2>
-      -->
-    </div>
+
+      <ul class="chapters" id="chapters">
+        <li><a href="#video" data-t="0">0:00</a> Title</li>
+        <li><a href="#video" data-t="12.2">0:12</a> The problem</li>
+        <li><a href="#video" data-t="56.5">0:56</a> The result</li>
+        <li><a href="#video" data-t="80.2">1:20</a> Thin grids and the plug DP</li>
+        <li><a href="#video" data-t="131.9">2:12</a> Parity</li>
+        <li><a href="#video" data-t="175.2">2:55</a> Alternation on the border</li>
+        <li><a href="#video" data-t="216.0">3:36</a> Local patterns</li>
+        <li><a href="#video" data-t="247.4">4:07</a> Corner configurations</li>
+        <li><a href="#video" data-t="292.1">4:52</a> Forced corner routes</li>
+        <li><a href="#video" data-t="324.7">5:25</a> Deleting empty lines</li>
+        <li><a href="#video" data-t="365.1">6:05</a> Band extension</li>
+        <li><a href="#video" data-t="405.4">6:45</a> Cutting and gluing</li>
+        <li><a href="#video" data-t="491.7">8:12</a> A worked example</li>
+        <li><a href="#video" data-t="536.8">8:57</a> The proof and its Lean check</li>
+      </ul>
 
     </div>
-    </div>
-
   </div>
 </section>
-<!-- End teaser video -->
+
+<script>
+  // Chapter links seek the explainer video instead of reloading the page.
+  //
+  document.querySelectorAll('#chapters a').forEach(function(a) {
+    a.addEventListener('click', function(ev) {
+      var v = document.getElementById('explainer');
+      ev.preventDefault();
+      var t = parseFloat(a.dataset.t);
+
+      // Seeking before the metadata has loaded is ignored,
+      // so wait for it on the first click.
+      //
+      if (v.readyState >= 1) { v.currentTime = t; }
+      else                   { v.addEventListener('loadedmetadata', function() { v.currentTime = t; }, { once: true }); v.load(); }
+
+      v.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      v.play();
+    });
+  });
+</script>
+<!-- End explainer video -->
+
 
 <!-- Paper abstract -->
 <section class="section hero is-light">
@@ -193,11 +229,10 @@
         We describe the algorithm, the catalogue, the proof structure, the compromises made in the
         formalization, and implementations in Python, JavaScript and C that produce identical output.
           </p>
-
         </div>
 
         <div>
-        <img src="static/images/k2zzn_16x11_.svg" alt="Teaser Image"/>
+        <img src="static/images/k2zzn_16x11_.svg" alt="A solved 16 by 11 instance"/>
         </div>
 
       </div>
@@ -206,308 +241,524 @@
 </section>
 <!-- End paper abstract -->
 
-<!-- Image carousel -->
-<!-- <section class="hero is-small"> -->
+
+<!-- The problem -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">The Problem</h2>
+    <div class="content has-text-justified">
+      <p>
+        An instance is an \(R \times C\) grid of cells with four distinct endpoints.
+        \(s_0, t_0\) have colour A (green) and \(s_1, t_1\) have colour B (orange).
+        A solution is a pair of vertex-disjoint paths \(s_0 \to t_0\) and \(s_1 \to t_1\), moving
+        between edge-adjacent cells, that together visit every cell of the grid.
+        This is the two-colour case of Zig-Zag Numberlink, and the two-path case of the puzzle game
+        <i>Flow Free</i>.
+        In graph terms it is the paired 2-disjoint path cover problem on rectangular grid graphs.
+      </p>
+    </div>
+
+    <div class="columns is-centered is-multiline">
+      <div class="column is-one-third">
+        <figure class="fig">
+          <img src="static/images/splash_instance.svg" alt="An instance">
+          <figcaption>An instance.</figcaption>
+        </figure>
+      </div>
+      <div class="column is-one-third">
+        <figure class="fig">
+          <img src="static/images/splash_solution.svg" alt="A solution">
+          <figcaption>A solution. The two paths are disjoint and every cell is used.</figcaption>
+        </figure>
+      </div>
+      <div class="column is-one-third">
+        <figure class="fig">
+          <img src="static/images/splash_unsolvable.svg" alt="An unsolvable instance">
+          <figcaption>No solution. The colours alternate around the border, so the paths would have to cross.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="content has-text-justified">
+      <p>
+        With unboundedly many colours the problem is NP-complete (Adcock et al. 2015).
+        With one colour it asks for a Hamiltonian path between two given cells of a rectangle,
+        which Itai, Papadimitriou and Szwarcfiter (1982) settled.
+        Their condition, called <b>IPS</b> below, is a colour-compatibility test on the checkerboard
+        plus three small forbidden families on rectangles with a side of length 1, 2 or 3.
+        Two colours are the first case where the two paths can block each other, and where
+        corners, borders and the relative order of the endpoints start to matter.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End the problem -->
+
+
+<!-- Main result -->
 <section class="section hero is-light">
-  <div class='hero-body'>
-  <div class="container is-centered">
-    <!-- <div class="hero-body"> -->
-    <div class="columns is-centered has-text-centered">
-    <div class="column is-four-fifths">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">The Result</h2>
+    <div class="content has-text-justified">
 
-        <h2 class="title is-3">Algorithm Overview</h2>
-
-          <div class="level-set has-text-justified">
-              <p>
-
-              <!--
-  POMS works by initially setting the grid to an indeterminate state and progressively realizing sub blocks of the grid.
-  Block boundary edges that fall within the larger grid body
-  are pinned so that, should a block realization succeed, the
-  block can be re-integrated back into the larger grid. Should
-  block level realization fail, depending on the type of block
-  realization failure, either the failed block region is set to
-  an indeterminate state or the block region is restored to its
-  previous state and all realized region boundaries within the
-  grid are considered for erosion by probabilistically setting
-  them to an indeterminate state.
-              -->
-              </p>
-            </div>
-
-        <div id="results-carousel1" class="carousel results-carousel">
-
-          <!--
-         <div class="item" height="100%">
-          <img src="static/images/poms_figalg.png" alt="Single Step Algorithm Description"/>
-          <h2 class="subtitle has-text-centered">
-            Overview of a single step of the Punch Out Model Synthesis algorithm.
-          </h2>
-        </div>
-          -->
-
-        <!--
-        <div class="item">
-          <img src="static/images/pm_slideshow.png" alt="Pill Mortal Slideshow"/>
-          <h2 class="subtitle has-text-centered">
-            Slideshow run of Punch Out Model Synthesis on the <i>Pill Mortal</i> tile set.
-          </h2>
-        </div>
-        -->
-
-        <!--
-        <div class="item">
-          <img src="static/images/tileset_rrti.png" alt="Automatic Tile Constraint Generation Example"/>
-          <h2 class="subtitle has-text-centered">
-            An example source image, super tile set and resulting tile set for the automatic tile constraint generation process.
-         </h2>
-       </div>
-        -->
-
-        <!--
-       <div class="item">
-        <img src="static/images/2d_poms_examples.png" alt="2D POMS Examples with TACCL"/>
-        <h2 class="subtitle has-text-centered">
-          Overview of the Tile Arc Consistent Correlation Length, exemplar image and resulting example for four 2D tile sets.
-        </h2>
-      </div>
-        -->
-
-      <!--
-       <div class="item">
-        <img src="static/images/brutal-plum_cons.png" alt="3D POMS Example with TACCL"/>
-        <h2 class="subtitle has-text-centered">
-          Overview of the Tile Arc Consistent Correlation Length, example tile set and example output for the <i>Brutal Plum</i> tile set.
-        </h2>
-      </div>
-      -->
-
+      <div class="result-box">
+        <p>
+          <b>Thin rectangles.</b> If \(\min(R, C) \le 10\), a frontier ("plug") dynamic program
+          decides the instance and returns a solution, in time linear in the long side.
+        </p>
+        <p>
+          <b>The domain \(\mathfrak{D}\).</b> If \(R, C \ge 11\), the instance is solvable if and only
+          if no entry of a finite <b>catalogue</b> of forbidden patterns occurs in it.
+        </p>
+        <p style="margin-bottom:0;">
+          <b>Construction.</b> When an instance is solvable, a solution is built in
+          \(O\big((R + C)\, R C\big)\) time.
+        </p>
       </div>
 
-    </div>
-    </div>
-
-  </div>
-  </div>
-</section>
-<!-- End image carousel -->
-
-
-
-<!-- Image carousel -->
-
-<section class="hero is-small">
-  <div class='hero-body'>
-    <div class="container is-centered">
-
-      <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-
-      <h2 class="title is-3">Example Outputs</h2>
-
-<!--
-
-      <div id="results-carousel" class="carousel results-carousel">
-
-        <div class="item">
-          <img src="static/images/pillMortal_128x128.png" alt="Pill Mortal"/>
-          <h2 class="subtitle has-text-centered">
-            Example output of Punch Out Model Synthesis for the <i>Pill Mortal</i> tile set.
-          </h2>
-        </div>
-
-         <div class="item">
-          <img src="static/images/2bmmv_128x128.png" alt="Two Bit Micro Metroidvania"/>
-          <h2 class="subtitle has-text-centered">
-            Example output of Punch Out Model Synthesis for the <i>Two Bit Micro Metroidvania</i> tile set.
-          </h2>
-        </div>
-
-         <div class="item">
-          <img src="static/images/oarpgo_256x256_wUbW3x3.png" alt="Overhead Action RPG Overworld"/>
-          <h2 class="subtitle has-text-centered">
-            Example output of Punch Out Model Synthesis for the <i>Overhead Action RPG Overworld</i> tile set.
-          </h2>
-        </div>
-
-         <div class="item">
-          <img src="static/images/minirogue_128x128.png" alt="Mini Rogue"/>
-          <h2 class="subtitle has-text-centered">
-            Example output of Punch Out Model Synthesis for the <i>Mini Rogue</i> tile set.
-          </h2>
-        </div>
-
-         <div class="item">
-          <img src="static/images/brutal-plum_screenshot.png" alt="Brutal Plum"/>
-          <h2 class="subtitle has-text-centered">
-            Example output of Punch Out Model Synthesis for the <i>Brutal Plum</i> tile set.
-          </h2>
-        </div>
-
-        <div class="item">
-          <img src="static/images/1985_128x128.png" alt="1985"/>
-          <h2 class="subtitle has-text-centered">
-            Example output of Punch Out Model Synthesis for the <i>1985</i> tile set.
-          </h2>
-        </div>
-
-      </div>
-
--->
-
-    </div>
-
-    </div>
-  </div>
-</div>
-</section>
-
-
-<!-- End image carousel -->
-
-
-
-<!-- Youtube video -->
-<!--
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-
-      <h2 class="title is-3">Video Presentation</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          
-          <div class="publication-video">
-
-            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
+      <p>
+        Both directions of the characterization and the exactness of the plug DP are proved in Lean 4.
+        Every step of the construction is one of a few operations on the grid.
+        Empty lines are deleted, the grid is cut along a straight line, the pieces are solved
+        on their own, and the pieces are glued back together.
+        The rest of this page walks through the catalogue, those operations, an example, and
+        the verification.
+      </p>
     </div>
   </div>
 </section>
--->
-<!-- End youtube video -->
+<!-- End main result -->
 
 
-<!-- Video carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
+<!-- Catalogue -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">The Catalogue of Forbidden Patterns</h2>
+    <div class="content has-text-justified">
+      <p>
+        Each entry describes a placement of endpoints that no solution can have.
+        Entries are stated up to symmetry. Each one also applies to its images under the
+        8 symmetries of the rectangle, to the instance with the colours swapped, and to the
+        instance with \(s\) and \(t\) swapped within a colour.
+        Below, \(a\) is a colour and \(\bar a\) is the other one.
+      </p>
 
-      <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+      <h4 class="title is-5">Global entries</h4>
+      <p>
+        Colour cell \((r, c)\) black when \(r + c\) is even and white otherwise, and write
+        \(\sigma(x) = +1\) for a black cell and \(-1\) for a white one.
+        A path alternates colours, so its endpoints' signs determine how many more black cells
+        than white cells it covers.
+        The two paths together cover the whole grid, which gives the parity condition <b>P</b>.
+        Two endpoint pairs on the border that interleave cannot be joined without crossing,
+        which gives the alternation condition <b>T1</b>.
+      </p>
+    </div>
 
-
-      <h2 class="title is-3">Example Visualization Runs</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-
-
-<!--
-        <div class="item item-video1">
-          <video poster="" id="video1" autoplay controls muted loop height="100%">
-            <source src="static/videos/pm_w.mp4" type="video/mp4"> </video>
-          <h2 class="subtitle has-text-centered">
-            Example output of Punch Out Model Synthesis for the <i>Pill Mortal</i> tile set.
-          </h2>
-
-        </div>
-
-        <div class="item item-video2">
-          <video poster="" id="video2" autoplay controls muted loop height="100%">
-            <source src="static/videos/oarpgo_x10_w.mp4" type="video/mp4">
-          </video>
-          <h2 class="subtitle has-text-centered">
-            Example output of Punch Out Model Synthesis for LUNARSIGNALS' <i>Overhead Action RPG Overworld</i> tile set (10x speed).
-          </h2>
-
-        </div>
-
-        <div class="item item-video3">
-          <video poster="" id="video3" autoplay controls muted loop height="100%">\
-            <source src="static/videos/forestmicro_x5_w.mp4" type="video/mp4">
-          </video>
-
-          <h2 class="subtitle has-text-centered">
-            Example output of Punch Out Model Synthesis for Wozniak's <i>Forest Micro</i> tile set (5x speed).
-          </h2>
-
-        </div>
-
-        <div class="item item-video3">
-          <video poster="" id="video3" autoplay controls muted loop height="100%">\
-            <source src="static/videos/2bmmv_x10_w.mp4" type="video/mp4">
-          </video>
-
-          <h2 class="subtitle has-text-centered">
-            Example output of Punch Out Model Synthesis for 0x72's <i>Two Bit Micro Metroidvania</i> tile set (10x speed).
-          </h2>
-
-        </div>
-
-        <div class="item item-video3">
-          <video poster="" id="video3" autoplay controls muted loop height="100%">\
-            <source src="static/videos/minirogue_x10_w.mp4" type="video/mp4">
-          </video>
-
-          <h2 class="subtitle has-text-centered">
-            Example output of Punch Out Model Synthesis for Kingel's <i>Mini Rogue</i> tile set (10x speed).
-          </h2>
-
-        </div>
-
--->
-
+    <div class="columns is-centered is-multiline is-mobile">
+      <div class="column is-half-mobile is-one-third-tablet">
+        <figure class="fig">
+          <img src="static/images/cat_P.svg" alt="P">
+          <figcaption><b>P</b> fires when \(\sum \sigma(\text{endpoint}) \ne 2\,(RC \bmod 2)\).
+            Here \(RC = 20\) is even, so the sum must be 0, but it is 2.</figcaption>
+        </figure>
       </div>
-
+      <div class="column is-half-mobile is-one-third-tablet">
+        <figure class="fig">
+          <img src="static/images/cat_T1.svg" alt="T1">
+          <figcaption><b>T1</b> fires when all four endpoints are on the border and the colours alternate A, B, A, B around it.</figcaption>
+        </figure>
       </div>
+      <div class="column is-half-mobile is-one-third-tablet">
+        <figure class="fig">
+          <img src="static/images/cat_T2.svg" alt="T2">
+          <figcaption><b>T2</b> fires when the endpoints fill a \(2 \times 2\) square with each colour on a diagonal.</figcaption>
+        </figure>
       </div>
+      <div class="column is-half-mobile is-one-third-tablet">
+        <figure class="fig">
+          <img src="static/images/cat_L1.svg" alt="L1">
+          <figcaption><b>L1</b> fires when every in-grid neighbour of an endpoint is an endpoint of the other colour.</figcaption>
+        </figure>
+      </div>
+      <div class="column is-half-mobile is-one-third-tablet">
+        <figure class="fig">
+          <img src="static/images/cat_L6.svg" alt="L6">
+          <figcaption><b>L6</b> fires when each colour has a closed corner, an empty corner cell whose two neighbours are endpoints of that colour.</figcaption>
+        </figure>
+      </div>
+    </div>
 
+    <div class="content has-text-justified">
+      <h4 class="title is-5">Corner and edge entries</h4>
+      <p>
+        These are checked in each of the 8 <b>corner frames</b> (4 corners, 2 orientations each).
+        In frame coordinates \((i, j)\), \(i\) counts lines in from the corner along one edge and
+        \(j\) along the other.
+        The cell marked "?" in L2, L3 and L5 is the corner cell that cannot be covered.
+      </p>
+    </div>
+
+    <div class="columns is-centered is-multiline is-mobile">
+      <div class="column is-half-mobile is-one-third-tablet">
+        <figure class="fig">
+          <img src="static/images/cat_L2.svg" alt="L2">
+          <figcaption><b>L2</b> \((0,1) = a\), \((1,0) = \bar a\), corner empty. The corner cell would join two colours.</figcaption>
+        </figure>
+      </div>
+      <div class="column is-half-mobile is-one-third-tablet">
+        <figure class="fig">
+          <img src="static/images/cat_L3.svg" alt="L3">
+          <figcaption><b>L3</b> \((0,2), (1,1) = a\), \((1,0) = \bar a\), \((0,0), (0,1)\) empty.</figcaption>
+        </figure>
+      </div>
+      <div class="column is-half-mobile is-one-third-tablet">
+        <figure class="fig">
+          <img src="static/images/cat_L4.svg" alt="L4">
+          <figcaption><b>L4</b> \((0,0), (1,1) = a\), \((0,2) = \bar a\), \((0,1), (1,0)\) empty.</figcaption>
+        </figure>
+      </div>
+      <div class="column is-half-mobile is-one-third-tablet">
+        <figure class="fig">
+          <img src="static/images/cat_L5.svg" alt="L5">
+          <figcaption><b>L5</b> \((0,0) = a\), \((0,2), (2,0) = \bar a\), \((0,1), (1,0), (1,1)\) empty.</figcaption>
+        </figure>
+      </div>
+      <div class="column is-half-mobile is-one-third-tablet">
+        <figure class="fig">
+          <img src="static/images/cat_E1.svg" alt="E1">
+          <figcaption><b>E1</b> along an edge, \((0,k), (1,k{+}1) = a\) and \((1,k{+}2), (0,k{+}3) = \bar a\).</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="content has-text-justified">
+      <h4 class="title is-5">Listed corner configurations</h4>
+      <p>
+        The remaining corner patterns do not have a short description, so they are listed.
+        <b>B</b> is a list of triples \((p, q, r)\), with colour \(a\) at \(p\) and \(q\), \(\bar a\) at
+        \(r\), and the other \(\bar a\) endpoint on the border outside the \(6 \times 6\) corner window
+        (21 triples when \(RC\) is even, 5 when \(R\) and \(C\) are both odd).
+        <b>C</b> lists 36 complete endpoint configurations near a corner for \(RC\) even, and
+        <b>D</b> lists 3 for \(RC\) odd.
+        That is 65 listed configurations in all.
+        Each is proved unsolvable by an exhaustive <b>window certificate</b>, a finite check that
+        covers every way the two paths can leave the corner window.
+        The full lists are in the
+        <a href="https://github.com/zzyzek/R2K2ZZN/blob/main/docs/ALGORITHM.md#3-the-catalogue" target="_blank">algorithm notes</a>.
+      </p>
+    </div>
+
+    <div class="columns is-centered is-mobile">
+      <div class="column is-half">
+        <figure class="fig">
+          <img src="static/images/cat_B.svg" alt="B">
+          <figcaption><b>B</b> a listed triple in the corner (shaded \(6 \times 6\) window) and the partner far away on the border.</figcaption>
+        </figure>
+      </div>
+      <div class="column is-half">
+        <figure class="fig">
+          <img src="static/images/cat_C.svg" alt="C">
+          <figcaption><b>C</b> all four endpoints form one of the 36 listed configurations near a corner.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="content has-text-justified">
+      <h4 class="title is-5">R, forced corner routes followed by alternation</h4>
+      <p>
+        Some endpoints near a corner force the first steps of their path.
+        Rule R1, R2 or R3 moves such an endpoint to where its forced route ends (dashed circle)
+        and marks the cells the route uses as settled (grey).
+        After the rules are applied in all 8 frames, the border of the unsettled region becomes
+        a staircase near the corners.
+        <b>R</b> fires when the moved endpoints all lie on that staircase border and their
+        colours alternate along it, which is T1 for the smaller region.
+      </p>
+    </div>
+
+    <div class="columns is-centered is-multiline is-mobile">
+      <div class="column is-one-third">
+        <figure class="fig"><img src="static/images/rule_R1.svg" alt="R1"><figcaption><b>R1</b> an endpoint at \((0,1)\) with \((0,0), (1,0)\) empty. Its path runs through the corner to \((1,0)\).</figcaption></figure>
+      </div>
+      <div class="column is-one-third">
+        <figure class="fig"><img src="static/images/rule_R2.svg" alt="R2"><figcaption><b>R2</b> two same-colour endpoints at \((0,0)\) and \((1,1)\).</figcaption></figure>
+      </div>
+      <div class="column is-one-third">
+        <figure class="fig"><img src="static/images/rule_R3.svg" alt="R3"><figcaption><b>R3</b> two endpoints of different colours at \((1,2)\) and \((2,1)\).</figcaption></figure>
+      </div>
+      <div class="column is-half">
+        <figure class="fig"><img src="static/images/r_example1.svg" alt="R example 1"><figcaption>R fires on an \(11 \times 12\) instance. Grey cells are settled, dashed circles are the moved endpoints, and the shaded cells are the staircase border.</figcaption></figure>
+      </div>
+      <div class="column is-half">
+        <figure class="fig"><img src="static/images/r_example2.svg" alt="R example 2"><figcaption>R fires on another \(11 \times 12\) instance.</figcaption></figure>
+      </div>
     </div>
   </div>
 </section>
-
-<!-- End video carousel -->
-
+<!-- End catalogue -->
 
 
+<!-- Algorithm -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">The Algorithm</h2>
+    <div class="content has-text-justified">
+      <pre>
+solve(I):                                   # returns (path A, path B) or None
+  if min(R, C) &lt;= 10: return plugDP(I)
+  if the catalogue fires on I: return None
+  if a reduction (S, K or I) deletes free lines d, d+1:
+      return bandExtend(solve(I minus lines d, d+1), d)
+  if a same-colour split exists: return its two Hamiltonian paths
+  m := first valid move of I                # one exists, and both sides are &lt;= 22
+  solve the pieces of m (Hamiltonian path / plug DP / solve), glue them
 
+decide(I) := plugDP feasibility if thin, else "the catalogue does not fire"</pre>
 
+      <h4 class="title is-5">Thin grids, the plug DP</h4>
+      <div class="columns is-vcentered">
+        <div class="column is-two-fifths">
+          <figure class="fig"><img src="static/images/plugdp_frontier.svg" alt="Plug DP frontier"></figure>
+        </div>
+        <div class="column">
+          <p>
+            Transpose so the short side \(W \le 10\) runs down the columns, and process the cells
+            column by column, top to bottom.
+            The <b>frontier</b> between processed and unprocessed cells crosses \(W + 1\) edges.
+            A state records which frontier edges a path uses, the colour of each, and how they
+            are connected inside the processed region (matched like parentheses, since pieces
+            cannot cross).
+            Each cell takes the plugs coming from above and from the left and emits the plugs it
+            still needs to the right and below.
+            The number of states depends only on \(W\) (about \(10^5\) for \(W = 10\)), so the
+            running time is linear in the long side.
+            Walking back through the stored states recovers the paths.
+          </p>
+        </div>
+      </div>
 
-<!-- Paper poster -->
-<!--
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster</h2>
+      <h4 class="title is-5">Reductions, deleting two empty lines</h4>
+      <p>
+        A <b>free</b> line is a full row or column with no endpoint.
+        On an axis of length \(n \ge 13\), two adjacent free lines are deleted when one of the
+        rules below applies.
+        The thresholds keep every catalogue entry's view unchanged (the \(8 \times 8\) corner
+        windows, the order along the border, parity), so the smaller instance passes the catalogue
+        whenever the original does.
+        A side of length 23 or more always has a reduction.
+        Every irreducible instance in \(\mathfrak{D}\) therefore has both sides in \([11, 22]\).
+      </p>
+    </div>
 
-      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
-        
+    <div class="columns is-centered is-mobile">
+      <div class="column is-one-third">
+        <figure class="fig"><img src="static/images/red_S.svg" alt="Strip reduction"><figcaption><b>(S) strip</b> an edge gap of 4 or more free lines. Delete the 2 outermost.</figcaption></figure>
+      </div>
+      <div class="column is-one-third">
+        <figure class="fig"><img src="static/images/red_K.svg" alt="Compression"><figcaption><b>(K) compression</b> a gap of 10 or more free lines between endpoints. Delete 2 from its middle.</figcaption></figure>
+      </div>
+      <div class="column is-one-third">
+        <figure class="fig"><img src="static/images/red_I.svg" alt="Interior compression"><figcaption><b>(I) interior compression</b> a gap of 3 or more free lines, away from the corner windows.</figcaption></figure>
       </div>
     </div>
-  </section>
--->
-<!--End paper poster -->
 
-
-<!--BibTex citation -->
-
-<!--
-  <section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
-      <h2 class="title">BibTeX</h2>
-      <pre><code>
-@inproceedings{zzyzek2024poms,
- title={Punch Out Model Synthesis: A Stochastic Algorithm for Constraint Based Tiling Generation},
-author={Zzyv Zzyzek},
-booktitle={Proceedings of the AIIDE Workshop on Experimental AI in Games},
-year={2024}}
-      </code></pre>
+    <div class="content has-text-justified">
+      <h4 class="title is-5">Band extension, putting the lines back</h4>
+      <p>
+        A solution of the smaller instance is extended by inserting two empty rows below a free
+        row.
+        Each path edge that crosses the insertion is stretched through the two new rows.
+        The new rows split into blocks between consecutive crossings, and each crossing absorbs
+        the block on one side with a U-shaped detour.
+        At most one block is left over.
+        It is absorbed by replacing a path edge along its top with the block's boundary cycle.
+        A counting argument shows such an edge always exists.
+      </p>
     </div>
+
+    <div class="columns is-centered is-mobile">
+      <div class="column is-half">
+        <figure class="fig"><img src="static/images/band_before.svg" alt="Before band extension"><figcaption>A solution before two rows are inserted.</figcaption></figure>
+      </div>
+      <div class="column is-half">
+        <figure class="fig"><img src="static/images/band_after.svg" alt="After band extension"><figcaption>After band extension. Crossings are stretched, blocks taken by detours, the last by a square flip.</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="content has-text-justified">
+      <h4 class="title is-5">Moves, cutting and gluing</h4>
+      <p>
+        When no reduction applies, the grid is cut by a straight line.
+        Where a path crosses the cut, the two cells on either side become <b>virtual endpoints</b>
+        (dashed circles) of their pieces.
+        A one-path piece must pass IPS and is solved as a Hamiltonian path.
+        A two-path piece is solved by the plug DP if it is thin, or recursively if it is in
+        \(\mathfrak{D}\) and passes the catalogue.
+        The pieces' solutions are then joined at the crossings.
+        A computer check, run inside Lean, found a valid move for every passing irreducible
+        instance with sides 11 to 22.
+      </p>
+    </div>
+
+    <div class="columns is-centered is-multiline is-mobile">
+      <div class="column is-half-mobile is-one-fifth-tablet">
+        <figure class="fig"><img src="static/images/move_strip.svg" alt="Strip move"><figcaption><b>Strip</b> all endpoints on one side, an empty even-area block on the other, spliced in afterwards.</figcaption></figure>
+      </div>
+      <div class="column is-half-mobile is-one-fifth-tablet">
+        <figure class="fig"><img src="static/images/move_13.svg" alt="1/3 move"><figcaption><b>1/3</b> one endpoint alone on one side, joined to the rest at one crossing.</figcaption></figure>
+      </div>
+      <div class="column is-half-mobile is-one-fifth-tablet">
+        <figure class="fig"><img src="static/images/move_cross.svg" alt="2/2 cross move"><figcaption><b>2/2 cross</b> one endpoint of each colour per side, two crossings.</figcaption></figure>
+      </div>
+      <div class="column is-half-mobile is-one-fifth-tablet">
+        <figure class="fig"><img src="static/images/move_same.svg" alt="2/2 same move"><figcaption><b>2/2 same</b> one whole pair per side, two Hamiltonian paths.</figcaption></figure>
+      </div>
+      <div class="column is-half-mobile is-one-fifth-tablet">
+        <figure class="fig"><img src="static/images/move_exc.svg" alt="Excursion move"><figcaption><b>Excursion</b> one pair on one side, with its path making a trip across the cut.</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="content has-text-justified">
+      <h4 class="title is-5">Running time</h4>
+      <p>
+        Each reduction removes two lines, so there are \(O(R + C)\) of them.
+        Each costs a catalogue check and an \(O(RC)\) extension, for \(O\big((R + C)\,RC\big)\) in total.
+        Moves only happen on boxes of bounded size and take constant time.
+        The plug DP is linear in the long side, with a large constant at width 10.
+      </p>
+    </div>
+  </div>
 </section>
--->
-<!--End BibTex citation -->
+<!-- End algorithm -->
+
+
+<!-- Worked example -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">A Worked Example</h2>
+    <div class="content has-text-justified">
+      <p>
+        A \(16 \times 13\) instance that passes the catalogue, solved step by step.
+        This is the same example as in the video.
+      </p>
+      <ol>
+        <li><b>Strip reduction.</b> Rows 0 to 3 are free and \(16 \ge 13\), so rows 0 and 1 are deleted. The instance is now \(14 \times 13\).</li>
+        <li><b>Strip move.</b> Rows 12 and 13 are free and every endpoint is above them. The \(2 \times 13\) block below the cut is set aside.</li>
+        <li><b>Strip move again.</b> Columns 11 and 12 of the \(12 \times 13\) piece are free. A \(12 \times 2\) block is set aside.</li>
+        <li><b>2/2 cross.</b> The \(12 \times 11\) piece is cut between rows 5 and 6, with one crossing of each colour. Both halves are \(6 \times 11\), which is thin, and the plug DP solves them.</li>
+        <li><b>Glue back.</b> The halves are joined at the crossings, then the \(12 \times 2\) and \(2 \times 13\) blocks are spliced in.</li>
+        <li><b>Extend.</b> The two deleted rows are inserted again by band extension.</li>
+      </ol>
+    </div>
+
+    <div class="columns is-centered is-multiline is-mobile">
+      <div class="column is-half-mobile is-one-quarter-tablet"><figure class="fig"><img src="static/images/ex_0.svg" alt="Example step 0"></figure></div>
+      <div class="column is-half-mobile is-one-quarter-tablet"><figure class="fig"><img src="static/images/ex_1.svg" alt="Example step 1"></figure></div>
+      <div class="column is-half-mobile is-one-quarter-tablet"><figure class="fig"><img src="static/images/ex_2.svg" alt="Example step 2"></figure></div>
+      <div class="column is-half-mobile is-one-quarter-tablet"><figure class="fig"><img src="static/images/ex_3.svg" alt="Example step 3"></figure></div>
+      <div class="column is-half-mobile is-one-third-tablet"><figure class="fig"><img src="static/images/ex_4.svg" alt="Example step 4"></figure></div>
+      <div class="column is-half-mobile is-one-third-tablet"><figure class="fig"><img src="static/images/ex_5.svg" alt="Example step 5"></figure></div>
+      <div class="column is-half-mobile is-one-third-tablet"><figure class="fig"><img src="static/images/ex_final.svg" alt="Example final"></figure></div>
+    </div>
+
+    <div class="content has-text-justified">
+      <p>To reproduce it with the trace of every step:</p>
+      <pre>python3 lib/python/zzn_cli.py 16 13 5 2 12 10 6 9 13 3 --grid --trace</pre>
+      <p>
+        The arguments are \(R\), \(C\) and the endpoints \(s_0, t_0, s_1, t_1\) as row-column pairs.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End worked example -->
+
+
+<!-- Verification -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Verification in Lean 4</h2>
+    <div class="content has-text-justified">
+      <p>
+        The definitions of instances, paths and solutions fit in about 60 lines
+        (<a href="https://github.com/zzyzek/R2K2ZZN/blob/main/lean/ZZN/Defs.lean" target="_blank"><code>lean/ZZN/Defs.lean</code></a>).
+        Everything else is checked by Lean against them.
+      </p>
+      <table class="table is-fullwidth is-narrow" style="background:transparent;">
+        <thead><tr><th>Theorem</th><th>Statement</th></tr></thead>
+        <tbody>
+          <tr><td><code>passes_iff_solvable</code></td><td>For \(R, C \ge 11\), an instance is solvable if and only if the catalogue does not fire.</td></tr>
+          <tr><td><code>thinBF_iff</code></td><td>The plug DP is exact (sound and complete).</td></tr>
+          <tr><td><code>solvableB_iff</code></td><td>The combined decision procedure is correct for every rectangle.</td></tr>
+        </tbody>
+      </table>
+      <p>
+        Soundness of the catalogue (an entry that fires means no solution) is proved by direct
+        arguments for the global and local entries and by window certificates for B, C and D.
+        Completeness (passing means solvable) is an induction on area.
+        Reductions preserve passing and band extension carries solutions back.
+        Irreducible instances have sides at most 22, and each of the 144 boxes of sides
+        11 to 22 is checked to have a valid move for every passing instance.
+      </p>
+      <p>
+        The 144 box checks and 10 window certificates are evaluated by <code>native_decide</code>,
+        which trusts the Lean compiler rather than the kernel.
+        They appear as 154 extra axioms.
+        <code>thinBF_iff</code> uses only the standard axioms <code>propext</code>,
+        <code>Classical.choice</code> and <code>Quot.sound</code>.
+        A full build takes about 4 hours on 4 threads.
+        The paper (Section 9) explains this choice and what a kernel check would cost.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End verification -->
+
+
+<!-- Implementations -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Implementations</h2>
+    <div class="content has-text-justified">
+      <p>
+        The algorithm is implemented in Python, JavaScript and C, which take the same arguments
+        and print the same output.
+        A test harness runs all three on the same random instances and requires identical results,
+        and each implementation's catalogue agrees with the Lean definition on 60,000 instances.
+      </p>
+<pre>python3 lib/python/zzn_cli.py 12 12 0 0 0 11 11 0 11 11 --grid
+node lib/js/cli.js 12 12 0 0 0 11 11 0 11 11 --grid
+make -C lib/c &amp;&amp; lib/c/zzn 12 12 0 0 0 11 11 0 11 11 --grid</pre>
+      <p>
+        Further reading in the repository.
+      </p>
+      <ul>
+        <li><a href="https://github.com/zzyzek/R2K2ZZN/blob/main/docs/ALGORITHM.md" target="_blank">ALGORITHM.md</a>, the algorithm in enough detail to re-implement it.</li>
+        <li><a href="https://github.com/zzyzek/R2K2ZZN/blob/main/docs/PLUGDP.md" target="_blank">PLUGDP.md</a>, the plug DP and its state encoding.</li>
+        <li><a href="https://github.com/zzyzek/R2K2ZZN/blob/main/docs/PROOF.md" target="_blank">PROOF.md</a>, the proof in prose.</li>
+        <li><a href="https://github.com/zzyzek/R2K2ZZN/blob/main/lean/README.md" target="_blank">lean/README.md</a>, how to build and check the Lean proof.</li>
+        <li>The <a href="https://zzyzek.github.io/R2K2ZZN/demo" target="_blank">demo</a>, which solves small instances in the browser.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- End implementations -->
+
+
+<!-- AI disclosure -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">AI Disclosure</h2>
+    <div class="content has-text-justified">
+      <p>
+        Nearly the entirety of the work for this project was done by Claude (Opus 5.5), including
+        writing the paper, the reference implementations, the Lean 4 proof and the explainer video.
+        The author contributed little more than the problem statement and guidance.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End AI disclosure -->
 
 
 <footer class="footer">
@@ -517,7 +768,11 @@ year={2024}}
         <div class="content">
 
           <p>
-            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            The paper, code, proofs, video and figures are dedicated to the public domain under
+            <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank">CC0 1.0 Universal</a>.
+          </p>
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
             You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
             Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
@@ -527,10 +782,6 @@ year={2024}}
     </div>
   </div>
 </footer>
-
-  <!-- Statcounter tracking code -->
-  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
-  <!-- End of Statcounter Code -->
 
 </body>
 </html>
