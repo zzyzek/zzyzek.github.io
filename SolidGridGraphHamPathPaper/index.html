@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Hamiltonian s-t paths in solid grid graphs are decided in polynomial time. An algorithm extending Sheffield's height-function method, with a Lean 4 proof of correctness and a polynomial step bound, and a narrated explainer video.">
+  <meta property="og:title" content="Hamiltonian s–t Paths in Solid Grid Graphs are Decided in Polynomial Time: An Algorithm with a Lean 4 Proof"/>
+  <meta property="og:description" content="A polynomial-time algorithm for Hamiltonian s–t paths in solid grid graphs, an open problem since 1982, with correctness and a step bound proved in Lean 4."/>
+  <meta property="og:url" content="https://zzyzek.github.io/SolidGridGraphHamPathPaper/"/>
+  <meta property="og:image" content="static/images/video_poster.jpg" />
+  <meta property="og:image:width" content="1280"/>
+  <meta property="og:image:height" content="720"/>
+
+  <meta name="twitter:title" content="Hamiltonian Paths in Solid Grid Graphs">
+  <meta name="twitter:description" content="A polynomial-time algorithm for Hamiltonian s–t paths in solid grid graphs, verified in Lean 4.">
+  <meta name="twitter:image" content="static/images/video_poster.jpg">
+  <meta name="keywords" content="Discrete mathematics, algorithms, Hamiltonian path, solid grid graphs, height functions, Sheffield, Umans-Lenhart, Lean 4">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Hamiltonian Paths in Solid Grid Graphs</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+
+  <link href="static/css/goog-sans-noto-castoro.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+
+  <link rel="stylesheet" href="static/css/academicons.min.css">
+
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="static/js/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="static/css/fontawesome.all.css">
+  <script defer src="static/js/fontawesome.all.js"></script>
+
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="static/js/mathjax/tex-svg.js"></script>
+
+  <style>
+    .fig { margin: 0 auto; display: block; max-width: 100%; }
+    .fig img { width: 100%; height: auto; display: block; margin: 0 auto; }
+    .fig figcaption { font-size: 0.9rem; color: #4a4a4a; margin-top: 0.4rem; text-align: left; }
+    .fig figcaption b { color: #222; }
+    .content pre { text-align: left; font-size: 0.85rem; max-width: 100%; overflow-x: auto; }
+    .hero > .container { width: 100%; min-width: 0; }
+    .chapters { columns: 2; column-gap: 2rem; text-align: left; margin: 1rem auto 0 auto; max-width: 40rem; }
+    .chapters li { list-style: none; break-inside: avoid; }
+    .chapters a { font-variant-numeric: tabular-nums; display: inline-block; min-width: 3.2rem; }
+    .result-box { border-left: 4px solid #7F77DD; background: #f7f6fd; padding: 0.8rem 1.2rem; margin: 1rem 0; text-align: left; }
+    .content table td, .content table th { vertical-align: middle; }
+    .table-wrap { overflow-x: auto; margin-bottom: 1rem; }
+    @media screen and (max-width: 600px) { .chapters { columns: 1; } }
+  </style>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+
+            <h1 class="title is-1 publication-title">
+              Hamiltonian \(s\)–\(t\) Paths in Solid Grid Graphs
+
+              <br> <small style='font-size:1.75rem;'>are Decided in Polynomial Time,</small>
+              <br> <small style='font-size:1.75rem;'>an Algorithm with a Lean 4 Proof</small>
+            </h1>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"> <a href="https://zzyzek.github.io" target="_blank">Z. Zzyzek</a> </span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+
+                <span class="link-block">
+                  <a href="#video"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"> <i class="fas fa-film"></i> </span>
+                    <span>Video</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/zzyzek/SolidGridGraphHamPath/blob/main/paper/build/hpst.pdf" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"> <i class="fas fa-file-pdf"></i> </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/zzyzek/SolidGridGraphHamPath" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"> <i class="fab fa-github"></i> </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/zzyzek/SolidGridGraphHamPath/tree/main/lean" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"> <i class="fas fa-check-double"></i> </span>
+                    <span>Lean Proof</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://zzyzek.github.io/SolidGridGraphHamPath/demo" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"> <i class="fa-solid fa-dice"></i> </span>
+                    <span>Demo</span>
+                  </a>
+                </span>
+
+                <!--
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"> <i class="ai ai-arxiv"></i> </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<!-- Explainer video -->
+<section class="hero teaser" id="video">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+
+      <video id="explainer" poster="static/images/video_poster.jpg" controls preload="metadata" width="100%">
+        <source src="static/videos/hpst_explainer_h.mp4" type="video/mp4">
+      </video>
+
+      <h2 class="subtitle has-text-centered" style="margin-top:0.75rem;">
+        A narrated eighteen-minute explainer. The problem, Sheffield's flips and heights, the phase
+        and its certificate, phantom endpoints, holes and vortices, flip classes, and one complete run.
+      </h2>
+
+      <ul class="chapters" id="chapters">
+        <li><a href="#video" data-t="0">0:00</a> Title</li>
+        <li><a href="#video" data-t="11.3">0:11</a> The problem</li>
+        <li><a href="#video" data-t="57.2">0:57</a> Earlier results</li>
+        <li><a href="#video" data-t="98.4">1:38</a> Pieces and flips</li>
+        <li><a href="#video" data-t="155.0">2:35</a> Heights</li>
+        <li><a href="#video" data-t="268.9">4:28</a> The phase and the certificate</li>
+        <li><a href="#video" data-t="463.8">7:43</a> Phantom endpoints and deletion walks</li>
+        <li><a href="#video" data-t="561.3">9:21</a> Inner endpoints become holes</li>
+        <li><a href="#video" data-t="590.1">9:50</a> Vortices</li>
+        <li><a href="#video" data-t="608.1">10:08</a> The slit height</li>
+        <li><a href="#video" data-t="677.2">11:17</a> Quadrant labels and the potential</li>
+        <li><a href="#video" data-t="770.8">12:50</a> Two vortices</li>
+        <li><a href="#video" data-t="813.0">13:33</a> Flip classes and the class search</li>
+        <li><a href="#video" data-t="968.1">16:08</a> One complete run</li>
+        <li><a href="#video" data-t="1041.8">17:21</a> Closing</li>
+      </ul>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // Chapter links seek the explainer video instead of reloading the page.
+  //
+  document.querySelectorAll('#chapters a').forEach(function(a) {
+    a.addEventListener('click', function(ev) {
+      var v = document.getElementById('explainer');
+      ev.preventDefault();
+      var t = parseFloat(a.dataset.t);
+
+      // Seeking before the metadata has loaded is ignored,
+      // so wait for it on the first click.
+      //
+      if (v.readyState >= 1) { v.currentTime = t; }
+      else                   { v.addEventListener('loadedmetadata', function() { v.currentTime = t; }, { once: true }); v.load(); }
+
+      v.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      v.play();
+    });
+  });
+</script>
+<!-- End explainer video -->
+
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+        A grid graph is a finite set of lattice points with every unit edge between two of its points.
+        It is solid when it has no holes.
+        We give an algorithm that decides, for a solid grid graph \(V\) and two distinct points
+        \(s, t \in V\), whether \(V\) has a Hamiltonian path from \(s\) to \(t\).
+        Correctness and a polynomial step bound are proved in Lean 4 with Mathlib.
+        The main theorem <code>decideHamPath_main</code> states that the algorithm returns
+        <code>true</code> exactly when a Hamiltonian \(s\)–\(t\) path exists, and that it takes at most
+        \(5\,220\,000\,(|V|+3)^6\) steps of explicit cost functions.
+        Its only axioms are <code>propext</code>, <code>Classical.choice</code> and <code>Quot.sound</code>.
+        The algorithm extends Sheffield's height-function algorithm for Hamiltonian cycles.
+        Each endpoint gets a phantom edge to a missing neighbour, which moves its degree-one defect off
+        the vertex set.
+        An endpoint with all eight king neighbours present is deleted and becomes a hole, and its
+        degree-one defect is a vortex of the height field.
+        A slit height and a quadrant label give a potential that rises along every arc, which replaces
+        the height function in Sheffield's counting argument.
+        The count behind a stuck phase is proved with chained rows, straight runs of rows through
+        several cuts.
+          </p>
+        </div>
+
+        <figure class="fig" style="max-width:26rem;">
+          <img src="static/images/hero.svg" alt="A Hamiltonian s-t path on a 197-point solid grid graph"/>
+          <figcaption>A Hamiltonian path from \(s\) to \(t\) on a solid grid graph with 197 points, found
+            by the algorithm. The path is coloured along its length, from blue at \(s\) to orange at \(t\).
+            Both endpoints are inner, so the run goes through the two-hole case.</figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- The problem -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">The Problem</h2>
+    <div class="content has-text-justified">
+      <p>
+        A <b>grid graph</b> is given by a finite set \(V \subset \mathbb{Z}^2\) of lattice points.
+        Its edges are the unit segments between two points of \(V\).
+        A <b>Hamiltonian \(s\)–\(t\) path</b> visits every point of \(V\) exactly once, starting at
+        \(s\) and ending at \(t\).
+        For general grid graphs, deciding whether such a path exists is NP-complete
+        (Itai, Papadimitriou and Szwarcfiter, 1982).
+        A grid graph is <b>solid</b> when it has no holes, that is, when every missing point can
+        reach the outside of \(V\) by king moves through missing points.
+      </p>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <figure class="fig">
+          <img src="static/images/solid.svg" alt="A solid and a non-solid grid graph">
+          <figcaption>Left, a solid grid graph. Right, not solid. The red point is missing, and all
+            eight of its king neighbours (purple dashed box) are in \(V\), so it cannot reach the outside.</figcaption>
+        </figure>
+      </div>
+      <div class="column is-half">
+        <figure class="fig">
+          <img src="static/images/factor.svg" alt="A Hamiltonian path and its phantom edges">
+          <figcaption>Left, a Hamiltonian path from \(s\) to \(t\). Right, the same path with two
+            phantom edges (dashed) to the missing points \(p\) and \(q\), which give \(s\) and \(t\)
+            degree 2.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="content has-text-justified">
+      <p>
+        Itai, Papadimitriou and Szwarcfiter posed the solid case in 1982, and it has been listed as
+        open since (Keshavarz-Kohjerdi 2011, Keshavarz-Kohjerdi and Bagheri 2016).
+        For Hamiltonian <i>cycles</i> in solid grid graphs, Umans and Lenhart (1997) gave a
+        polynomial algorithm, and Sheffield (2000) gave a second one based on height functions.
+        Sheffield's introduction remarks that similar results hold for paths with fixed endpoints.
+        This work gives a written proof of the path case and checks it in Lean.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End the problem -->
+
+
+<!-- Main result -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">The Result</h2>
+    <div class="content has-text-justified">
+
+      <div class="result-box">
+        <p style="margin-bottom:0;">
+          <b>Theorem</b> (<code>decideHamPath_main</code>).
+          Let \(V \subset \mathbb{Z}^2\) be finite and solid, and let \(s \ne t\) be points of \(V\).
+          Then <code>decideHamPath V s t = true</code> if and only if there is an edge set \(H\) of the
+          grid graph on \(V\) with degree 1 at \(s\) and \(t\), degree 2 at every other point, and one
+          connected component.
+          The cost <code>decideHamPathCost V s t</code> is at most \(5\,220\,000\,(|V|+3)^6\).
+        </p>
+      </div>
+
+<pre>theorem SolidGridHam.HP.decideHamPath_main {V : Finset Pt} {s t : Pt}
+    (hs : Solid V) (hst : s ≠ t) (hsV : s ∈ V) (htV : t ∈ V) :
+    (decideHamPath V s t = true ↔ ∃ H, IsFactor V (dST s t) H ∧ ncomp V H = 1) ∧
+      decideHamPathCost V s t ≤ 5220000 * (V.card + 3) ^ 6</pre>
+
+      <p>
+        An edge set with these degrees and one component is exactly a Hamiltonian \(s\)–\(t\) path.
+        An endpoint is <b>inner</b> when all eight of its king neighbours lie in \(V\).
+        The algorithm dispatches on which endpoints are inner, and each case has its own proved bound.
+      </p>
+
+      <div class="table-wrap">
+      <table class="table is-fullwidth is-narrow" style="background:transparent;">
+        <thead><tr><th>\(s\)</th><th>\(t\)</th><th>Lean theorem</th><th>Bound</th></tr></thead>
+        <tbody>
+          <tr><td>not inner</td><td>not inner</td><td><code>boundaryEndpoints_main</code></td><td>\(1\,060\,000\,(|V|+3)^4\)</td></tr>
+          <tr><td colspan="2">exactly one inner</td><td><code>oneHoleCase_main</code></td><td>\(2\,513\,000\,(|V|+3)^5\)</td></tr>
+          <tr><td>inner</td><td>inner</td><td><code>twoHoleCase_main</code></td><td>\(5\,217\,000\,(|V|+3)^6\)</td></tr>
+          <tr><td colspan="2">all cases, plus the dispatch</td><td><code>decideHamPath_main</code></td><td>\(5\,220\,000\,(|V|+3)^6\)</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <p>
+        Running time is stated through explicit cost functions written beside each algorithm in Lean.
+        Primitive operations on finite sets (membership, insertion, a cell flip) are charged a constant.
+        The bound is proved for these functions, not for a machine model, and a machine implementation
+        may have a larger exponent, though still polynomial.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End main result -->
+
+
+<!-- Sheffield's algorithm -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">The Starting Point, Sheffield's Algorithm</h2>
+    <div class="content has-text-justified">
+      <p>
+        Sheffield's algorithm decides Hamiltonian cycles in solid grid graphs.
+        It starts from any <b>2-factor</b>, a set of edges with degree 2 at every point, which
+        splits \(V\) into disjoint cycles called <b>pieces</b>.
+        It then <b>flips</b> unit cells, toggling their four sides, to join pieces one at a time.
+        A <b>height function</b> on the cells orders these flips so that the search cannot run in
+        circles.
+        When no more pieces can be joined, a locally checkable <b>certificate</b> proves that no
+        2-factor has fewer pieces, so no Hamiltonian cycle exists.
+        In a solid grid graph every 2-factor can be reached from every other by flips, so one run
+        decides the question.
+      </p>
+    </div>
+
+    <figure class="fig">
+      <img src="static/images/overview.svg" alt="The ideas of the algorithm in four pictures">
+      <figcaption>
+        (a) A 2-factor of the \(4 \times 4\) block with two pieces (blue, red).
+        (b) Flipping the yellow cell joins them into one cycle.
+        (c) A path from \(s\) to \(t\) with a phantom edge at each endpoint (dashed) to a missing point
+        (red circle), so that \(s\) and \(t\) have degree 2, as in a cycle.
+        (d) An inner endpoint \(t\) deleted, leaving a hole (grey cells). Two path factors differ by the
+        purple cycle around the hole, and no flip changes how many such cycles go around it.
+      </figcaption>
+    </figure>
+
+    <div class="content has-text-justified" style="margin-top:1.5rem;">
+      <p>
+        The path algorithm reduces the path problem to situations where this machinery still works.
+        Every component exists for one of two reasons.
+        Either it restores a hypothesis of Sheffield's argument that a path endpoint breaks, or it pays
+        for that repair with a bounded amount of branching.
+      </p>
+    </div>
+
+    <figure class="fig">
+      <img src="static/images/phase.svg" alt="The outcomes of one phase step">
+      <figcaption>
+        The outcomes of one <b>phase</b> step, with a height in every cell.
+        (a) Merge, a yellow merging cell joins two pieces.
+        (b) Stuck, the row of the only critical cell falls into a square that is not a cell (red cross).
+        (c) Odd, a row of odd length is lowered, which joins two pieces.
+        (d, e) Bridge, flipping the last cell of an even row splits a piece, and the phase continues.
+        (f, g) Twist, at a leaf with an inner endpoint, where the whole row is lowered.
+      </figcaption>
+    </figure>
+
+    <div class="content has-text-justified" style="margin-top:1.5rem;">
+      <p>
+        Each round of the loop is a phase and a reduction.
+        A phase joins pieces by flipping a merging cell, and when none exists it builds bridges, flips
+        that split a piece to expose a merging cell.
+        The reduction then undoes or lowers the bridges, and the round ends with one piece fewer.
+        If a phase is stuck, the certificate proves that no factor has fewer pieces.
+        Sheffield's count for a stuck phase has a gap, which this work closes with <b>chained rows</b>,
+        straight runs of rows through several cuts (<code>stuck_minimal</code>).
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End Sheffield's algorithm -->
+
+
+<!-- Endpoints -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Endpoints, Phantoms and Deletion Walks</h2>
+    <div class="content has-text-justified">
+      <p>
+        A Hamiltonian path has degree 1 at \(s\) and \(t\), while Sheffield's local rules and his
+        height function both use degree 2 at every point.
+        The repair is a <b>phantom</b>.
+        If an endpoint has a missing lattice neighbour \(p\), the edge from the endpoint to \(p\) is
+        added.
+        The endpoint then has degree 2, and the degree-one defect sits at \(p\), outside \(V\), where no
+        cell is ever flipped.
+        With phantoms at both endpoints, the phase and the certificate work again, provided the
+        endpoints are at king distance at least 2 (<b>Far</b>) and their phantoms do not point away
+        from each other across a gap of 2 (<b>not opposed</b>).
+      </p>
+      <p>
+        An endpoint may have no usable phantom.
+        Then the algorithm deletes the endpoint and branches over its neighbour \(w\) on the path.
+        \(V\) has a Hamiltonian \(s\)–\(t\) path exactly when \(V \setminus \{t\}\) has one from \(s\)
+        to some neighbour \(w\) of \(t\), and the deleted \(t\) becomes the phantom of \(w\).
+        Repeating this is a <b>deletion walk</b>.
+        Each end of the branching is a <b>leaf</b>, where the algorithm runs a final test.
+        A potential on the ring of king neighbours shows that a walk makes at most 13 final tests,
+        and there are at most 208 in every case, a constant.
+        When \(s\) and \(t\) are far apart, the walks stop right after the first deletions.
+      </p>
+    </div>
+
+    <figure class="fig" style="max-width:32rem;">
+      <img src="static/images/walk.svg" alt="Deletion walks">
+      <figcaption>
+        Left, a deletion walk with two boundary endpoints. The walk deletes \(t_0\) and then \(t_1\),
+        which lie within king distance 1 of \(s\) (purple box), and the deleted \(t_1\) becomes a usable
+        phantom of \(t\).
+        Right, the walk on the side of \(s\) after the inner endpoint \(t\) has been deleted (grey hole cells).
+      </figcaption>
+    </figure>
+  </div>
+</section>
+<!-- End endpoints -->
+
+
+<!-- Holes -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Inner Endpoints, Holes and Vortices</h2>
+    <div class="content has-text-justified">
+      <p>
+        An inner endpoint has no missing neighbour to take a phantom.
+        Deleting it leaves a one-point hole, and the deleted endpoint becomes the phantom of its
+        neighbour on the path, so the degree-one defect sits at the hole's centre.
+        Around this point the arcs that define the height do not balance, which is called a
+        <b>vortex</b>, and no height function exists.
+        Two things are lost, and each is put back separately.
+      </p>
+      <p>
+        <b>The order of the flips.</b>
+        The height is replaced by a <b>slit height</b> that jumps across one ray from the vortex, plus a
+        <b>quadrant label</b>.
+        The combination \(2\tau + \mathrm{lab}\) still rises along every arc, which is the only property
+        the certificate uses.
+      </p>
+    </div>
+
+    <figure class="fig" style="max-width:30rem;">
+      <img src="static/images/vortex.svg" alt="Quadrant label and slit height around a vortex">
+      <figcaption>
+        Left, the quadrant label around a vortex (open circle). It changes by \(\pm 1\) across the blue
+        lines and by \(\pm 3\) across the slit (red dashed).
+        Right, a factor of a \(4 \times 4\) instance with its slit height (bold) and quadrant label
+        (small, purple) in each cell.
+      </figcaption>
+    </figure>
+
+    <div class="content has-text-justified" style="margin-top:1.5rem;">
+      <p>
+        <b>Reachability by flips.</b>
+        Fix one factor \(F\) of the leaf as a reference.
+        Any other factor \(G\) differs from \(F\) by a set of alternating cycles.
+        The signed number of these that go around the hole is the <b>class</b> of \(G\).
+        The cells around the hole are not cells of the graph, so no flip changes the class, and
+        factors in different classes cannot reach each other by flips.
+        The algorithm therefore enumerates the classes, at most \(2|V|+1\) per hole, builds the least
+        factor of each class by a relaxation (<code>classSearch</code>), and runs Sheffield's loop in each
+        class.
+        The class enumeration is the main source of the polynomial degree.
+        Two inner endpoints give two holes and at most \((2|V|+1)^2\) class pairs.
+      </p>
+    </div>
+
+    <figure class="fig" style="max-width:34rem;">
+      <img src="static/images/classes.svg" alt="Two classes at one leaf">
+      <figcaption>
+        Two classes at one leaf of the \(4 \times 5\) block.
+        (a) The least factor of class \(h = 0\). (b) The least factor of class \(h = 1\).
+        (c) Their difference (purple) is one alternating cycle around the hole.
+        The loop succeeds in class 0 and is stuck in class 1.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+<!-- End holes -->
+
+
+<!-- Worked example -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Worked Examples</h2>
+    <div class="content has-text-justified">
+      <h4 class="title is-5">One complete run, one inner endpoint</h4>
+      <p>
+        \(V\) is the \(4 \times 4\) block without its top-left point, so \(|V| = 15\), with
+        \(s = (0,2)\) and \(t = (2,2)\).
+        \(t\) is inner and \(s\) is not, so the run goes through the one-hole case.
+        The first leaf ends with a certificate that it holds no Hamiltonian path, and the second finds one.
+      </p>
+    </div>
+
+    <figure class="fig">
+      <img src="static/images/example.svg" alt="One run of decideHamPath on 15 points">
+      <figcaption>
+        (a) The input. (b) Leaf 1, after deleting \(t\) and \(s\); their neighbours \(w\) and \(x\) get
+        phantoms and are Far, so the walk stops at once.
+        (c) The least factor of the only nonempty class, with 3 pieces and a merging cell.
+        (d) After the flip, 2 pieces, and the phase is stuck, so leaf 1 answers no.
+        (e) Leaf 2, the next neighbour of \(s\), with 2 pieces. (f) After the flip, 1 piece.
+        (g) Adding back \(s\) and \(t\) gives the Hamiltonian \(s\)–\(t\) path.
+      </figcaption>
+    </figure>
+
+    <div class="content has-text-justified" style="margin-top:1.5rem;">
+      <h4 class="title is-5">The bulk case, both endpoints inner and far apart</h4>
+      <p>
+        When \(s\) and \(t\) are far apart, the walks stop at once and the work is in the loop.
+        This run on 34 points needs a bridge.
+      </p>
+    </div>
+
+    <figure class="fig">
+      <img src="static/images/bulk.svg" alt="One run with both endpoints inner">
+      <figcaption>
+        (a) The input. (b) The leaf after deleting \(t\) and \(s\).
+        (c) The least factor of the class pair \((0,0)\), with 4 pieces.
+        (d, e) Two phases bring it to 2 pieces, and no merging cell is left.
+        (f) The bridge step flips a cell of the dashed row and splits the path, and a merging cell appears.
+        (g) The reduction flips it and lowers the bridge, leaving 1 piece.
+        (h) The Hamiltonian \(s\)–\(t\) path.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+<!-- End worked example -->
+
+
+<!-- Verification -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Verification in Lean 4</h2>
+    <div class="content has-text-justified">
+      <p>
+        The formalization is about 47,000 lines of Lean 4 and Mathlib.
+        The algorithm <code>decideHamPath</code> and every definition that it and the main statement use
+        are in one file of about 950 lines,
+        <a href="https://github.com/zzyzek/SolidGridGraphHamPath/blob/main/lean/SolidGridHam/Algorithm.lean" target="_blank"><code>lean/SolidGridHam/Algorithm.lean</code></a>.
+        <code>decideHamPath</code> is computable.
+        No file contains <code>sorry</code>, the build has no warnings, and the main results use only
+        <code>propext</code>, <code>Classical.choice</code> and <code>Quot.sound</code>.
+      </p>
+      <div class="table-wrap">
+      <table class="table is-fullwidth is-narrow" style="background:transparent;">
+        <thead><tr><th>Theorem</th><th>Statement</th></tr></thead>
+        <tbody>
+          <tr><td><code>decideHamPath_main</code></td><td>Correctness and the step bound, for every solid \(V\) and distinct \(s, t \in V\).</td></tr>
+          <tr><td><code>stuck_minimal</code></td><td>The count behind the certificate for a stuck phase, with chained rows.</td></tr>
+          <tr><td><code>ulhc_main</code></td><td>Hamiltonian cycles (Umans–Lenhart), correct in at most \(5 \cdot 10^8\,(|V|+1)^{12}\) steps of a step-counting monad.</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>
+        Lean checks everything except the following, which a reader checks by eye.
+      </p>
+      <ul>
+        <li><b>The definitions in the statement</b>, <code>Pt</code>, <code>Edge</code>, <code>IsEdge</code>,
+          <code>deg</code>, <code>IsFactor</code>, <code>dST</code>, <code>ncomp</code> and <code>Solid</code>.
+          <code>Solid</code> is cross-checked by computation against "every bounded face is a unit square",
+          not proved equivalent in Lean.</li>
+        <li><b>The cost model.</b> <code>decideHamPathCost</code> and the cost functions it calls are
+          written beside the algorithm and follow its structure, but are not linked to it formally.</li>
+        <li><b>Fixed endpoints.</b> The theorem is about paths between given \(s\) and \(t\). Paths with free
+          endpoints follow by trying all pairs.</li>
+      </ul>
+      <p>
+        The correctness statement is registered with the
+        <a href="https://palomar-registry.org" target="_blank">Palomar registry</a> as PALOMAR-2026-10-19-000001.
+        A full build takes about half an hour on four cores.
+      </p>
+<pre>cd lean
+lake exe cache get
+lake build
+cd .. &amp;&amp; scripts/check.sh</pre>
+    </div>
+  </div>
+</section>
+<!-- End verification -->
+
+
+<!-- Implementations -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Implementations</h2>
+    <div class="content has-text-justified">
+      <p>
+        The repository has reference implementations in Python, C and JavaScript, each with a
+        command-line front end, and all of them return the path on a "yes" answer.
+        The Python reference mode ports each definition on the call path of <code>decideHamPath</code>
+        as one function with the same name, control flow and iteration order.
+        Its fast mode adds answer-preserving speedups, and the C and JavaScript implementations port the
+        fast mode.
+        The implementations are not verified.
+      </p>
+<pre>python3 lib/python/gen.py -n 60 --shape stamp | python3 lib/python/hpst_cli.py --draw</pre>
+      <p>
+        The input is an ASCII grid with <code>.</code> for points, <code>#</code> or a space for missing
+        points, and <code>s</code>, <code>t</code> for the endpoints.
+      </p>
+      <ul>
+        <li><a href="https://github.com/zzyzek/SolidGridGraphHamPath/blob/main/lib/README.md" target="_blank">lib/README.md</a>, the input format, the command lines and the tests.</li>
+        <li><a href="https://github.com/zzyzek/SolidGridGraphHamPath/blob/main/lean/README.md" target="_blank">lean/README.md</a>, the Lean package.</li>
+        <li>The <a href="https://zzyzek.github.io/SolidGridGraphHamPath/demo" target="_blank">demo</a>, which generates a random solid shape, lets you place \(s\) and \(t\), and solves it in the browser.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- End implementations -->
+
+
+<!-- References -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Sources</h2>
+    <div class="content has-text-justified">
+      <ul>
+        <li>A. Itai, C. H. Papadimitriou and J. L. Szwarcfiter, <i>Hamilton paths in grid graphs</i>, SIAM J. Comput. 11 (1982), 676–686.</li>
+        <li>C. Umans and W. Lenhart, <i>Hamiltonian cycles in solid grid graphs</i>, Proc. 38th FOCS (1997), 496–505.</li>
+        <li>S. Sheffield, <i>Computing and sampling restricted vertex degree subgraphs and Hamiltonian cycles</i>, <a href="https://arxiv.org/abs/math/0008231" target="_blank">arXiv:math/0008231</a> (2000).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- End references -->
+
+
+<!-- AI disclosure -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">AI Disclosure</h2>
+    <div class="content has-text-justified">
+      <p>
+        Nearly the entirety of the work for this project was done by Claude (Opus 5.5), including the
+        algorithm, writing the paper, the reference implementations, the demo, the Lean 4 proof and the
+        explainer video.
+        The author contributed little more than the problem statement and guidance.
+      </p>
+    </div>
+  </div>
+</section>
+<!-- End AI disclosure -->
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            The paper, code, proofs, video and figures are dedicated to the public domain under
+            <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank">CC0 1.0 Universal</a>.
+          </p>
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
