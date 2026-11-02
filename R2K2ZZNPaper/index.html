@@ -111,7 +111,7 @@
                 </span>
 
                 <span class="link-block">
-                  <a href="https://github.com/zzyzek/R2K2ZZN/tree/main/lean" target="_blank"
+                  <a href="https://github.com/zzyzek/R2K2ZZN/tree/main/proof" target="_blank"
                      class="external-link button is-normal is-rounded is-dark">
                     <span class="icon"> <i class="fas fa-check-double"></i> </span>
                     <span>Lean Proof</span>
@@ -225,8 +225,8 @@
         constructive. Solutions are built by deleting empty lines, splitting the rectangle by straight cuts, and
         splicing the pieces back together, in time O((R+C) RC). Both directions of the characterization
         and the correctness of the dynamic programming algorithm are verified in Lean 4. The finite
-        case analyses, which are window certificates for the corner configurations and a check of all
-        irreducible instances with sides 11–22, are carried out by the Lean compiler via native decide.
+        case analyses, which are window certificates for the corner configurations and slice
+        certificates for the irreducible instances, are checked by the Lean kernel.
         We describe the algorithm, the catalogue, the proof structure, the compromises made in the
         formalization, and implementations in Python, JavaScript and C that produce identical output.
           </p>
@@ -597,8 +597,8 @@ decide(I) := plugDP feasibility if thin, else "the catalogue does not fire"</pre
         A two-path piece is solved by the plug DP if it is thin, or recursively if it is in
         \(\mathfrak{D}\) and passes the catalogue.
         The pieces' solutions are then joined at the crossings.
-        A computer check, run inside Lean, found a valid move for every passing irreducible
-        instance with sides 11 to 22.
+        A computer check, checked by the Lean kernel, found a valid move for every passing
+        irreducible instance (these have sides 11 to 16).
       </p>
     </div>
 
@@ -682,7 +682,7 @@ decide(I) := plugDP feasibility if thin, else "the catalogue does not fire"</pre
     <div class="content has-text-justified">
       <p>
         The definitions of instances, paths and solutions fit in about 60 lines
-        (<a href="https://github.com/zzyzek/R2K2ZZN/blob/main/lean/ZZN/Defs.lean" target="_blank"><code>lean/ZZN/Defs.lean</code></a>).
+        (<a href="https://github.com/zzyzek/R2K2ZZN/blob/main/proof/ZZN/Defs.lean" target="_blank"><code>proof/ZZN/Defs.lean</code></a>).
         Everything else is checked by Lean against them.
       </p>
       <table class="table is-fullwidth is-narrow" style="background:transparent;">
@@ -698,17 +698,14 @@ decide(I) := plugDP feasibility if thin, else "the catalogue does not fire"</pre
         arguments for the global and local entries and by window certificates for B, C and D.
         Completeness (passing means solvable) is an induction on area.
         Reductions preserve passing and band extension carries solutions back.
-        Irreducible instances have sides at most 22, and each of the 144 boxes of sides
-        11 to 22 is checked to have a valid move for every passing instance.
+        Irreducible instances have sides 11 to 16 (sides 17 to 22 are proved to have none), and
+        each of the 21 boxes of those sides is checked to have a valid move for every passing instance.
       </p>
       <p>
-        The 144 box checks and 10 window certificates are evaluated by <code>native_decide</code>,
-        which trusts the Lean compiler rather than the kernel.
-        They appear as 154 extra axioms.
-        <code>thinBF_iff</code> uses only the standard axioms <code>propext</code>,
+        The finite checks, slice certificates for the 21 boxes and 59 window certificates, are
+        checked by the Lean kernel. All results use only the standard axioms <code>propext</code>,
         <code>Classical.choice</code> and <code>Quot.sound</code>.
-        A full build takes about 4 hours on 4 threads.
-        The paper (Section 9) explains this choice and what a kernel check would cost.
+        A clean build takes about 5.4 CPU-hours.
       </p>
     </div>
   </div>
@@ -737,7 +734,7 @@ make -C lib/c &amp;&amp; lib/c/zzn 12 12 0 0 0 11 11 0 11 11 --grid</pre>
         <li><a href="https://github.com/zzyzek/R2K2ZZN/blob/main/docs/ALGORITHM.md" target="_blank">ALGORITHM.md</a>, the algorithm in enough detail to re-implement it.</li>
         <li><a href="https://github.com/zzyzek/R2K2ZZN/blob/main/docs/PLUGDP.md" target="_blank">PLUGDP.md</a>, the plug DP and its state encoding.</li>
         <li><a href="https://github.com/zzyzek/R2K2ZZN/blob/main/docs/PROOF.md" target="_blank">PROOF.md</a>, the proof in prose.</li>
-        <li><a href="https://github.com/zzyzek/R2K2ZZN/blob/main/lean/README.md" target="_blank">lean/README.md</a>, how to build and check the Lean proof.</li>
+        <li><a href="https://github.com/zzyzek/R2K2ZZN/blob/main/proof/README.md" target="_blank">proof/README.md</a>, how to build and check the Lean proof.</li>
         <li>The <a href="https://zzyzek.github.io/R2K2ZZN/demo" target="_blank">demo</a>, which solves small instances in the browser.</li>
       </ul>
     </div>
